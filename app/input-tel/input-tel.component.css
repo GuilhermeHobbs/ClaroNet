@@ -1,0 +1,52 @@
+.form-control {
+    margin-bottom: 10px;
+}
+
+.tel-box {
+    margin: 25px auto;
+    width: 45%;
+}
+
+.tel-box p {
+    text-align: center;
+    font-size: 21px;
+    
+}
+
+.tel-box input {
+    font-size: 25px;
+    float: left;
+    /*width: 70%;*/
+    height: 52px;
+}
+
+.tel-box button {
+    background: #ffbc4a;
+    color: black;
+    padding: 8px 16px;
+    border-radius: 50px;
+    float: left;
+    height: 52px;
+    margin-left: 10px;
+    font-size: 18px;
+}
+
+.input_error {
+    clear: both;
+    padding-top: 10px;
+}
+
+@media (max-width: 768px) {
+    .tel-box {
+     padding: 5px;
+     width: 100%;   
+    }
+    
+    .tel-box .logo {
+        width: 60%;
+    }
+    .tel-box button {
+        margin-left: 0px;
+        margin-top: 10px;
+    }    
+}    

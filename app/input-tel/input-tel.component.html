@@ -1,0 +1,14 @@
+<div class="form-group">
+    <div class="tel-box"> <!-- col-sm-8-->        
+        <input type="text" [textMask]="{mask: telMask}" class="form-control" aria-describedby="emailHelp" placeholder="(DDD) TELEFONE" [(ngModel)]="tel" (input)="cleanAlerts()"> <br>
+            <button type="submit" class="col-sm-3" (click)="envia()">Enviar</button>
+            <button class="col-sm-3 float-right" (click)="voltar()">Voltar</button>
+        
+        <div class="input_error">
+            <p *ngIf="tel_inv">Telefone inválido.</p>
+            <p *ngIf="verificando">Aguarde . . .</p>
+            <p *ngIf="cadastrado">Telefone cadastrado com sucesso.</p>
+            <p *ngIf="houve_erro">Houve um erro. Tente novamente, por favor.</p>
+        </div>            
+    </div>
+</div>    

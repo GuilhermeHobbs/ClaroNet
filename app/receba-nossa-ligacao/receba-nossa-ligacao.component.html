@@ -1,0 +1,13 @@
+<div class="tel-box">
+    <p>Informe seu número de telefone, fixo ou celular, para que possamos te ligar.</p>
+        <div class="form-group"> 
+            <input type="text" [textMask]="{mask: telMask}" class="form-control col-sm-8" aria-describedby="emailHelp" placeholder="(DDD) TELEFONE" [(ngModel)]="tel" (input)="cleanAlerts()"> 
+            <button type="submit" class="col-sm-3" (click)="envia()">Enviar</button>
+            <div class="input_error">
+                <p *ngIf="tel_inv">Telefone inválido.</p>
+                <p *ngIf="verificando">Aguarde . . .</p>
+                <p *ngIf="cadastrado">Telefone cadastrado com sucesso.</p>
+                <p *ngIf="houve_erro">Houve um erro. Tente novamente, por favor.</p>
+            </div>            
+        </div>
+</div>    

@@ -1,0 +1,116 @@
+<div *ngIf="emailRes" class="mb-15">
+    <h1>{{ emailRes }}</h1>
+</div>
+  
+<div *ngIf="porEmail">
+    <p class="text-center">Para qual e-mail enviar seu boleto?</p>
+    <app-input-email (clickEnviar)="enviarEmail()" (clickVoltar)="voltarEmail()"></app-input-email>
+</div>
+  
+<div *ngIf="smsRes" class="mb-15">
+  <h1>SMS enviado: {{ smsRes }}</h1>
+</div>
+
+<div *ngIf="porSms">
+  <p class="text-center">Para qual número enviar o SMS?</p>
+  <app-input-tel (clickEnviar)="enviarSms()" (clickVoltar)="voltarSms()"></app-input-tel>
+</div>
+
+
+<accordion [isAnimated]="true" [closeOthers]="true" *ngIf="accDividas">
+   
+    <accordion-group *ngFor="let acordo of acordos">
+        <button class="btn btn-link btn-block clearfix btn-accordion" accordion-heading>
+         <div class="row">
+          <div class="col-12 col-sm-2 img-produto">
+             <img [src]="getIcon(acordo)" class="produto-img">  
+             <p class="titulo-mobile">{{ acordo.NumeroTitulo.split(' ')[1] }}</p>
+          </div>  
+            <div class="col-sm-3 col-4 btn-linha no-padd-left no-padd-right">  
+                Data: {{ acordo.DataAcordo }}
+            </div>              
+          <div class="col-5 btn-linha">
+              Status: {{ acordo.StatusAcordo }}
+          </div>
+          <div class="col-sm-2 col-3 btn-linha">
+              Filial: {{ acordo.FilialAcordo }}
+          </div>
+        </div>
+        </button>     
+        <div class="acc-body">
+         <p class="font-weight-bold">Parcelas</p>
+          <div *ngIf="acordo.ParcelasAcordo.ParcelaAcordo.length">
+            <div *ngFor="let par of acordo.ParcelasAcordo.ParcelaAcordo; let ind = index" class="row bottom-parcela parcela-border">
+                    <div class="col-6 col-md-2">
+                         {{ par.DataVencimento }}
+                    </div>
+                    <div class="col-6 col-md-2 no-padd-right bottom-parcela">
+                        Status: {{ par.StatusParcelaAcordo }}
+                    </div>
+                    <div class="col-4 col-md-2 no-padd-right">
+                        R$ {{ apiRestService.doisDigitosDecimais(par.ValorParcela) }}
+                    </div>
+                    <div class="col-4 col-md-2 no-padd-right">
+                        <a type="button" class="btn btn-primary padd-mobile btn-segunda" (click)="segunda_via(acordo.CodigoAcordo, par.CodigoParcelaAcordo, acordo.CodigoTitulo, ind)">
+                            Ver segunda via do boleto        
+                        </a>
+                        <div class="erro-boleto" *ngIf="erroBoleto">Houve um erro. Tente novamente, por favor.</div>
+                    </div>
+                    <div class="col-4 col-md-2 no-padd-right">
+                        <a type="button" class="btn btn-primary padd-mobile btn-segunda" (click)="pegarEmail(ind, acordo.CodigoAcordo, acordo.CodigoTitulo, acordo.NumeroTitulo)">
+                            Enviar por e-mail        
+                        </a>                          
+                        <div class="erro-boleto" *ngIf="erroBoleto">Houve um erro. Tente novamente, por favor.</div>  
+                    </div>
+                    
+                    <div class="col-4 col-md-2 no-padd-right">
+                        <a type="button" class="btn btn-primary padd-mobile btn-segunda" (click)="pegarTelefone(ind, acordo.CodigoAcordo, acordo.CodigoTitulo)">
+                            Enviar por SMS        
+                        </a>                          
+                        <div class="erro-boleto" *ngIf="erroBoleto">Houve um erro. Tente novamente, por favor.</div>  
+                    </div>
+                    <div class="col-2 col-md-1">
+                        <div class="loader-wrap">
+                            <div class="loader" *ngIf="loadingBoleto[ind]"></div>
+                        </div>    
+                    </div>
+            </div>
+         </div>
+         <div *ngIf="acordo.ParcelasAcordo.ParcelaAcordo.CodigoParcelaAcordo" class="row parcela-border">
+                    <div class="col-6 col-md-2">
+                         {{ acordo.ParcelasAcordo.ParcelaAcordo.DataVencimento }}
+                        </div>
+                        <div class="col-6 col-md-2 no-padd-right bottom-parcela">
+                            Status: {{ acordo.ParcelasAcordo.ParcelaAcordo.StatusParcelaAcordo }}
+                        </div>
+                        <div class="col-4 col-md-2 no-padd-right">
+                           R$ {{ apiRestService.doisDigitosDecimais(acordo.ParcelasAcordo.ParcelaAcordo.ValorParcela) }}
+                        </div>
+                        <div class="col-4 col-md-2 no-padd-right">
+                            <a type="button" class="btn btn-primary padd-mobile btn-segunda" (click)="segunda_via(acordo.CodigoAcordo, acordo.ParcelasAcordo.ParcelaAcordo.CodigoParcelaAcordo, acordo.NumeroTitulo, 0)">
+                                Ver segunda via do boleto        
+                            </a>                          
+                            <div class="erro-boleto" *ngIf="erroBoleto">Houve um erro. Tente novamente, por favor.</div>  
+                        </div>
+                        <div class="col-4 col-md-2 no-padd-right">
+                            <a type="button" class="btn btn-primary padd-mobile btn-segunda" (click)="pegarEmail(0, acordo.CodigoAcordo, acordo.CodigoTitulo, acordo.NumeroTitulo)">
+                                Enviar por e-mail        
+                            </a>                          
+                            <div class="erro-boleto" *ngIf="erroBoleto">Houve um erro. Tente novamente, por favor.</div>  
+                        </div>
+                        
+                        <div class="col-4 col-md-2 no-padd-right">
+                            <a type="button" class="btn btn-primary padd-mobile btn-segunda" (click)="pegarTelefone(0, acordo.CodigoAcordo, acordo.CodigoTitulo)">
+                                Enviar por SMS        
+                            </a>                          
+                            <div class="erro-boleto" *ngIf="erroBoleto">Houve um erro. Tente novamente, por favor.</div>  
+                        </div>
+                        <div class="col-2 col-md-1">
+                            <div class="loader-wrap">
+                                <div class="loader" *ngIf="loadingBoleto[0]"></div>
+                            </div>    
+                        </div>    
+            </div>
+        </div>    
+    </accordion-group>
+</accordion>

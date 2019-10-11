@@ -1,0 +1,84 @@
+<div class="row height-100">
+    <div class="col-lg-3 fundo-paulista">
+    </div>
+ 
+    <div class="back-beje col-lg-9">
+                            
+            <p class="link-voltar btn-link" (click)="voltarMenu()" [hidden]="showOpcoes || apiRestService.telaFinal">Voltar ao Menu Principal</p>        
+            <p class="link-voltar btn-link" (click)="voltarInicio()" *ngIf="apiRestService.telaFinal">Fazer nova consulta de CPF ou CNPJ</p>        
+            <img src="assets/img/logo.png" alt="Claro" class="logo" [hidden]="logo_menor">
+            
+            <app-negocie-online *ngIf="showNegocieOnline"></app-negocie-online>
+            <app-assistente-virtual *ngIf="showAssistenteVirtual"></app-assistente-virtual>
+            <app-receba-nossa-ligacao *ngIf="showRecebaNossaLigacao"></app-receba-nossa-ligacao>
+            <app-acordos-andamento *ngIf="showAcordosAndamento"></app-acordos-andamento>
+                        
+            <div class="padding-right-10px" *ngIf="showOpcoes">
+                <h3 class="text-center bem-vindo" *ngIf="!fizPagamentoOk">Bem-vindo, <span class="text-capitalize">{{nome}}</span>!</h3>    
+                
+                <div class="row">                    
+                    <a class="card col-lg-2" (click)="negocieOnline()" *ngIf="this.apiRestService.dividas.data.Dividas">
+                            <img src="assets/icons/negocie_online.png" class="card-img-top" alt="...">
+                            <div class="card-body">
+                            <h5 class="card-title">NEGOCIE ONLINE</h5>
+                            <p class="card-text">Clique e tenha as melhores condições para negociar com a Claro de forma rápida e prática.</p>
+                            
+                            </div>
+                            <p class="btn btn-acessar">Acessar</p>
+                    </a>
+    
+            <a class="card col-lg-2" (click)="assistenteVirtual()" [hidden]="true">
+                    <img src="assets/icons/assistente-virtual.png" class="card-img-top" alt="...">
+                    <div class="card-body">
+                    <h5 class="card-title">ASSISTENTE VIRTUAL</h5>
+                    <p class="card-text">Converse agora com nosso Assistente Virtual, não perca tempo!</p>
+                    
+                    </div>
+                    <p class="btn btn-acessar">Acessar</p>
+            </a>
+    
+            <a class="card col-lg-2" (click)="recebaNossaLigacao()" [hidden]="true">
+                    <img src="assets/icons/receber-ligacao.png" class="card-img-top" alt="...">
+                    <div class="card-body">
+                    <h5 class="card-title">RECEBA NOSSA LIGAÇÃO</h5>
+                    <p class="card-text">Quer receber uma ligação de nosso agente digital? Aqui é o lugar certo!</p>
+                    
+                    </div>
+                    <p class="btn btn-acessar">Acessar</p>
+            </a>
+    
+            <div class="col-lg-3 fiz-pagamento-ok" *ngIf="fizPagamentoOk">
+                  <div class="container">
+                        <span class="red">Obrigada!</span><br>
+                        As informações de pagamento foram enviadas para a nossa central.<br>
+                        Caso necessário entraremos em contato no nosso número:<br> 
+                        0800 208 8080         
+                </div>            
+        </div>
+
+            <div class="card col-lg-2" *ngIf="cardBodyPagamento" (click)="fizPagamento()" [hidden]="true">
+                    <img src="assets/icons/fiz-pagamento.png" class="card-img-top" alt="...">
+                    <div class="card-body">
+                    <h5 class="card-title">JÁ FIZ O PAGAMENTO</h5>
+                    <p class="card-text">Já realizou o pagamento de seus débitos com a claro? Pressione o botão abaixo!</p>
+                        
+                    </div>
+                    <p class="btn btn-acessar">Informar</p>
+                </div>
+    
+            <a class="card col-lg-2" (click)="acordosAndamento()" *ngIf="this.apiRestService.dividas.data.Acordo">
+                    <img src="assets/icons/acordos.png" class="card-img-top" alt="...">
+                    <div class="card-body">
+                    <h5 class="card-title">SEUS ACORDOS EM ANDAMENTO</h5>
+                    <p class="card-text">Se tiver um acordo em andamento, acesse aqui para retirar a 2ª via.</p>
+                    
+                    </div>
+                    <p class="btn btn-acessar">Acessar</p>
+            </a>
+        </div>
+     </div>    
+        <a class="bottom-fixed back-beje-mobile" target="_blank" href="http://www.fulltimesolucoes.com.br/" *ngIf="apiRestService.showDisclaimer" [class.mobile-hidden]="showOpcoes || showAcordosAndamento">A Fulltime é uma empresa autorizada pela Claro para a cobrança de débito.</a>
+                
+    </div>    
+
+</div>      

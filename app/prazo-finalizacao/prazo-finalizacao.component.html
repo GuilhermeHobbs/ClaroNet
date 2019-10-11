@@ -1,0 +1,101 @@
+<div *ngIf="emailRes" class="mb-15">
+    <h1>{{ emailRes }}</h1>
+</div>
+  
+<div *ngIf="porEmail">
+    <p class="text-center">Para qual e-mail enviar seu boleto?</p>
+    <app-input-email (clickEnviar)="enviarEmail()" (clickVoltar)="voltarEmail()"></app-input-email>
+</div>
+  
+<div *ngIf="smsRes" class="mb-15">
+  <h1>SMS enviado: {{ smsRes }}</h1>
+</div>
+
+<div *ngIf="porSms">
+  <p class="text-center">Para qual número enviar o SMS?</p>
+  <app-input-tel (clickEnviar)="enviarSms()" (clickVoltar)="voltarSms()"></app-input-tel>
+</div>
+
+<div *ngIf="loader">
+  <p>Aguarde . . .</p>
+  <div class="loader-wrap">  
+    <div class="loader"></div>
+  </div>
+</div>  
+
+<div *ngIf="sucesso">
+  <h4 class="font-weight-bold"> O Acordo foi realizado com sucesso!</h4>
+  <br>
+  <h4>Como deseja receber seu boleto?</h4>
+  <br>
+  <div class="row">
+      <div class="col-6 col-sm-4">
+        <button type="button" class="btn btn-primary" (click)="pegarEmail()">
+          Por e-mail
+        </button>
+      </div>
+      <div class="col-6 col-sm-4">
+        <button type="button" class="btn btn-primary" (click)="pegarTelefone()">
+          Por SMS
+        </button>
+      </div>
+      <div class="col-sm-4">
+        <button type="button" class="btn btn-primary btn-mudar-parce" (click)="abrirBoleto()">
+          Ver dados do boleto
+        </button>
+      </div>            
+    </div>
+    <div class="erro-boleto" *ngIf="erroBoleto">Houve um erro. Tente novamente, por favor.</div>
+</div>
+
+<div *ngIf="erro">
+  <h1> Houve um erro. Tente novamente, por favor.</h1>
+</div>
+
+
+<div *ngIf="fim">
+  <p class="detalhes-titulo">Detalhes do acordo:</p>
+  <p>Data do {{ primeiraParcelado()? 'primeiro':'' }} pagamento: {{ (dataPagamento.toLocaleString().indexOf(',') > -1)? dataPagamento.toLocaleString().slice(0, 10) : dataPagamento.toLocaleString().split(' ')[0] }}</p>
+  <p>Valor {{ primeiraParcelado()? 'da primeira parcela':'' }}: R$ {{ primeiraParcelado()? primeiraParcelado():valorAVista() }}</p>
+  <p *ngIf="vezesParcelado()">Demais parcelas: {{ vezesParcelado() }} x R$ {{ outrasParcelado() }}</p>
+  <div class="row">
+    <div class="col-sm-4">
+      <button type="button" class="btn btn-yellow" (click)="gravaAcordo()"> <!-- sucesso = true; this.fim = false; -->
+        Confirmar acordo
+      </button>
+    </div>
+    <div class="col-6 col-sm-4">
+      <button type="button" class="btn btn-primary" (click)="mudarData()">
+        Mudar data
+      </button>
+    </div>
+    <div class="col-6 col-sm-4">
+      <!--<button type="button" class="btn btn-primary btn-mudar-parce" (click)="voltar()">
+        Mudar parcelamento
+      </button>-->
+    </div>            
+  </div>
+</div>
+
+<div class="opcoes-parcelamento" *ngIf="opcoesParcelamento">
+    <p class="escolha-data">Data para o pagamento:</p>
+    <div class="row">
+    <div class="col-sm-4">
+        <input type="text"
+        placeholder="Clique para escolher uma data"
+        class="form-control"
+        bsDatepicker [minDate]="minDate"
+        [maxDate]="maxDate"  [(ngModel)]="dataPagamento">
+    </div>  
+    <div class="col-sm-3">
+      <button type="button" class="btn btn-primary" (click)="showFinalizacao()">
+          Realizar acordo
+      </button>      
+    </div>
+    <div class="col-sm-3">      
+      <button type="button" class="btn btn-primary" (click)="voltar_data()">
+        Voltar
+      </button>
+    </div>    
+  </div>
+</div>  

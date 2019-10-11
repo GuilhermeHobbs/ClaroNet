@@ -1,0 +1,104 @@
+h1 {
+    position: absolute;
+    top: 35%;
+    margin-left: 10px;
+    max-width: 300px;
+}
+
+.form-group {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.form-control {
+    margin-bottom: 15px;
+}
+
+.tela-grid {
+    background: url('~/assets/img/back.jpg') 100% 50% no-repeat;
+    height: 100%;
+    position: relative;
+    background-size: cover;
+    color: aliceblue;
+}
+
+.cpf-box {
+    height: 50%;
+    
+    margin: auto;
+    position: absolute;
+    top: 0; bottom: 0; right: 90px; 
+    /*
+    position: absolute;
+  right: 20px; 
+  margin: auto; */
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 600;
+  font-size: 19px;
+  
+}
+
+.cpf-box .logo {
+    display: block;
+    max-width: 400px;
+    margin: 0px auto 30px;
+}
+
+.cpf-box p {    
+    text-align: center;
+    
+}
+
+.cpf-box input {
+    font-size: 25px;
+    float: left;
+    /*width: 70%;*/
+    height: 52px;
+}
+
+.cpf-box button {
+    background: #ffbc4a;
+    color: black;
+    padding: 8px 16px;
+    border-radius: 50px;
+    float: left;
+    height: 52px;
+    margin-left: 10px;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.input_error {
+    clear: both;    
+}
+
+.auto_inicio {
+    text-align: right;
+    color: white;
+    bottom: 5px;
+    right: 10px;
+  }
+  
+@media (max-width: 768px) {
+    .cpf-box {
+     position: static;
+     padding: 10px;
+     height: 100%;   
+    }
+    
+    .cpf-box .logo {
+        width: 60%;
+    }
+    .cpf-box button {
+        margin-left: 0px;
+        margin-top: 10px;
+    }    
+
+    h1 {
+        position: static;
+        width: 99%;
+        margin: 5px auto 0;
+        font-size: 18px;
+        text-align: center;
+    }    
+}    

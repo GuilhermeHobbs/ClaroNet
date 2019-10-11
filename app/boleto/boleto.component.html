@@ -1,0 +1,76 @@
+<ng-template #template>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Seu boleto</h4>
+  </div>
+  <div class="modal-body">
+
+      <TABLE cellSpacing=0 cellPadding=0 border=0 class="Boleto">
+        
+        <TR>
+          <TD style='width: 0.9cm'></TD>
+          <TD style='width: 1cm'></TD>
+          <TD style='width: 1.9cm'></TD>
+          
+          <TD style='width: 0.5cm'></TD>
+          <TD style='width: 1.3cm'></TD>
+          <TD style='width: 0.8cm'></TD>
+          <TD style='width: 1cm'></TD>
+          
+          <TD style='width: 1.9cm'></TD>
+          <TD style='width: 1.9cm'></TD>
+          
+          <TD style='width: 3.8cm'></TD>
+          
+          <TD style='width: 3.8cm'></TD>
+        <tr><td colspan=11>
+        <ul class=BoletoInstrucoes>
+        <li>Imprima em papel A4 ou Carta</li>
+        <li>Não rasure o código de barras</li>
+        </ul>
+        </td></tr>
+        
+        <tr><td colspan=11 class="BoletoPontilhado">&nbsp;</td></tr>
+        <TR>
+          <TD colspan=3 class="BoletoLogo"><img src='assets/img/logo.jpg' style="width: 60px; padding: 5px"></TD>
+          <TD colspan=9 class="BoletoLinhaDigitavel">{{ linha }}</TD>
+        </TR>
+        <TR>
+          <TD colspan=9 class=BoletoTituloEsquerdo>Nome do Cliente</TD>
+          <TD colspan=2 class=BoletoTituloDireito>Valor</TD>
+        </TR>
+        <TR>
+          <TD colspan=9 class=BoletoValorEsquerdo style='text-align: left; padding-left : 0.1cm; text-transform: capitalize'>{{ cliente }}</TD>
+          <TD colspan=2 class="BoletoValorDireito">R$ {{ valor }}</TD>
+        </TR>  
+        <TR>
+          <TD colspan=9 class="BoletoTituloEsquerdo">Contrato</TD>
+          <TD colspan=2 class=BoletoTituloDireito>Vencimento</TD>
+        </TR>
+        <TR>
+          <TD colspan=9 class=BoletoValorEsquerdo style='text-align: left; padding-left : 0.1cm'>{{ contrato }}</TD>
+          <TD colspan=2 class=BoletoValorDireito>{{ data }}</TD>
+        </TR>   
+        <TR>
+          <TD colspan=4 class=BoletoTituloEsquerdo>Data do Documento</TD>
+          <TD colspan=3 class=BoletoTituloEsquerdo>Espécie</TD>
+          <TD colspan=4 class=BoletoTituloEsquerdo>Data do Processamento</TD>
+        </TR>
+        <TR>
+          <TD colspan=4 class=BoletoValorEsquerdo>{{ hoje }}</TD>
+          <TD colspan=3 class=BoletoValorEsquerdo>RC</TD>
+          <TD colspan=4 class=BoletoValorEsquerdo>{{ hoje }}</TD>
+        </TR>  
+          
+        <TR>
+          <TD colspan=12 class=BoletoTituloEsquerdo>Código de barras</TD>
+        </TR>
+        <TR>
+          <TD colspan=12  class=BoletoValorEsquerdo style='text-align: left; vertical-align:top; padding-left : 0.1cm'><canvas id="barcodeCanvas"></canvas></TD>
+          
+        </TR>  
+         
+                        
+        </TABLE>
+
+  </div>
+</ng-template>

@@ -1,0 +1,126 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap');
+@import '~bootstrap/dist/css/bootstrap.min.css';
+    
+
+body {
+    font-size: 18px;    
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+body, html {
+    height: 100%;
+    background: #f8f8f8;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+.red {
+  color: #e32620;
+}
+
+.mb-15 {
+  margin-bottom: 15px;
+}
+
+.height-100 {
+  height: 100%;
+}
+
+.font-15px {
+  font-size: 15px !important;
+}
+
+.padding-right-10px {
+  padding-right: 10px;
+}
+
+
+h3 {
+  margin-bottom: 15px;
+  font-size: 22px;
+}
+
+.card-title {
+  text-align: center;
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.up-30px {
+  position: relative;
+  top: -30px;
+}
+
+.pl-15px {
+  padding-left: 15px;
+}
+
+@media (max-width: 1000px) {
+
+  .up-15px-mobile {
+    top: -15px;
+  }
+
+  .fundo-paulista {
+    display: none;
+  }
+
+}
+
+@media (max-width: 768px) {
+ 
+  .mobile-hidden {
+    display: none;
+  }
+
+  .mobile-show {
+    display: block;
+  }
+
+  h3 {
+    font-size: 18px;
+  }
+
+  .no-padd-mobile {
+    padding: 0;
+  }
+
+  .no-margimBottom-mobile {
+    margin-bottom: 0;
+  }
+
+}
+    
+.loader-wrap {
+  height: 70px;
+  width: 70px;
+  display: table;
+} 
+
+
+.loader {
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 30px;
+  height: 30px;
+  -webkit-animation: spin 1s linear infinite; /* Safari */
+  animation: spin 1s linear infinite;
+  display: table-cell;
+    vertical-align: middle;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

@@ -1,0 +1,40 @@
+.btn {
+    width: 100%;
+    font-size: 19px;
+    margin-bottom: 20px;  
+}
+
+.btn-yellow {
+    background: #ffbc4a;
+    color: white;
+}
+
+.escolha-data {
+    text-align: left;
+    margin-bottom: 5px;
+}
+
+.detalhes-titulo {
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+ 
+    .btn {
+        margin-bottom: 0px;
+        margin-top: 20px;
+    }
+
+    .escolha-data {
+        text-align: left;
+        margin-bottom: 10px;
+    }
+
+    .detalhes-titulo {
+        margin-bottom: 0;        
+    }
+    
+    .btn-mudar-parce {
+        font-size: 15px;
+    }
+}    
