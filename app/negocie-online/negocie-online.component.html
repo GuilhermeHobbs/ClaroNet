@@ -3,11 +3,13 @@
   <h3 class="text-center">Selecione um contrato para avaliar as condições de negociação:</h3>
 </header>
 
-<accordion [isAnimated]="true" [closeOthers]="true">
+<app-prazo-finalizacao *ngIf="prazoFinalizacao" (clickVoltar)="showOpcoesParcelamento(0)" (clickVoltarAVista)="hideOpcoesParcelamento()"></app-prazo-finalizacao>
+
+<accordion [isAnimated]="true" [closeOthers]="true" *ngIf="!prazoFinalizacao">
   
   <accordion-group *ngIf="apiRestService.dividasTvVirtua.data.Dividas.Divida.length && mostrarAbas[0]">
     <button class="btn btn-link btn-block clearfix btn-accordion" accordion-heading (click)="botaoNaoClicavel() && getAllOpcoesTvVirtua()" [class.mobile-hidden]="!showHeader">
-      <img src="assets/icons/phone.jpg" class="produto-img" alt="...">
+      <img src="assets/icons/tv.jpg" class="produto-img" alt="...">
       <div class="pull-left float-left produto-heading"><span>TV / Virtua</span> 
         <span class="movelLabel" *ngIf="movelLabel">Débitos para serem negociados</span>
         <span class="movelLabel" *ngIf="opcoesParcelamentoLabel">Opções de parcelamento</span>
@@ -28,7 +30,7 @@
         </div>  
       </div>   
   
-    <app-prazo-finalizacao *ngIf="prazoFinalizacao" (clickVoltar)="showOpcoesParcelamento(0)" (clickVoltarAVista)="hideOpcoesParcelamento()"></app-prazo-finalizacao>
+    
     <div class="loader-wrap-wrap" *ngIf="loader">  
         <div class="loader-wrap">
           <div class="loader"></div>
@@ -41,9 +43,9 @@
         <div class="metodo-de-pagamento">
           <span class="font-weight-bold">Valor total: R$ {{ getValorTotal(div.CodigoTitulo) }} </span><br>
           <div *ngIf="div.Parcelas.ParcelaDivida.length">
-            <div *ngFor="let par of div.Parcelas.ParcelaDivida">
+            <!--<div *ngFor="let par of div.Parcelas.ParcelaDivida">
               Data Venc.: {{ par.Vencimento }}              
-            </div>
+            </div>-->
           </div>
           <div *ngIf="div.Parcelas.ParcelaDivida.Vencimento">
               Data Venc.: {{ div.Parcelas.ParcelaDivida.Vencimento }}
@@ -71,25 +73,25 @@
     </div>
   </div>
   </accordion-group>
-<!--
-  <accordion-group *ngIf="apiRestService.dividasClaroTv.Divida.DadosDivida.length && mostrarAbas[1]">
-    <button class="btn btn-link btn-block clearfix btn-accordion" accordion-heading (click)="botaoNaoClicavel() && getAllOpcoesClaroTv()" [class.mobile-hidden]="!showHeader">
-      <img src="assets/icons/tv.jpg" class="produto-img" alt="...">
-      <div class="pull-left float-left produto-heading"><span>Claro TV</span> 
+
+  <accordion-group *ngIf="apiRestService.dividasNetfone.data.Dividas.Divida.length && mostrarAbas[1]">
+    <button class="btn btn-link btn-block clearfix btn-accordion" accordion-heading (click)="botaoNaoClicavel() && getAllOpcoesNetfone()" [class.mobile-hidden]="!showHeader">
+      <img src="assets/icons/phone.jpg" class="produto-img" alt="...">
+      <div class="pull-left float-left produto-heading"><span>NETFONE</span> 
         <span class="movelLabel" *ngIf="movelLabel">Débitos para serem negociados</span>
         <span class="movelLabel" *ngIf="opcoesParcelamentoLabel">Opções de parcelamento</span>
       </div>        
     </button>  
 
-    <div class="row opcoes-parcelamento" *ngIf="opcoesParcelamento && opcoesPg[this.apiRestService.dividasClaroTv.Divida.DadosDivida[ind_parcelado].CodigoTitulo]">
-        <p class="w-100 pl-15px">Opções de Parcelamento:</p>
-        <div class="col-xs-12 col-sm-6" [class.col-lg-4]="opcoesPg[this.apiRestService.dividasClaroTv.Divida.DadosDivida[ind_parcelado].CodigoTitulo].OpcaoPagamento.length > 4" *ngFor="let opc of opcoesPg[this.apiRestService.dividasClaroTv.Divida.DadosDivida[ind_parcelado].CodigoTitulo].OpcaoPagamento; let ind = index" [hidden]="!ind">
-          <button type="button" [class.btn-smaller]="opcoesPg[this.apiRestService.dividasClaroTv.Divida.DadosDivida[ind_parcelado].CodigoTitulo].OpcaoPagamento.length > 4" class="btn btn-primary" (click)="showPrazoFinalizacao(); pagarParceladoTv(ind, apiRestService.dividasClaroTv.Divida.DadosDivida[ind_parcelado].CodigoTitulo, opcoesPg[this.apiRestService.dividasClaroTv.Divida.DadosDivida[ind_parcelado].CodigoTitulo].OpcaoPagamento[ind].Plano)"> 
-              R$ {{ getOpcaoTv(ind) }}
+    <div class="row opcoes-parcelamento" *ngIf="opcoesParcelamento && opcoesPg[this.apiRestService.dividasNetfone.Dividas.Divida[ind_parcelado].CodigoTitulo]">
+        <p class="w-100 pl-15px no-margimBottom-mobile">Opções de Parcelamento:</p>
+        <div class="col-xs-12 col-sm-6" [class.col-lg-4]="opcoesPg[this.apiRestService.dividasNetfone.data.Dividas.Divida[ind_parcelado].CodigoTitulo].OpcaoPagamento.length > 4" *ngFor="let opc of opcoesPg[this.apiRestService.dividasNetfone.data.Dividas.Divida[ind_parcelado].CodigoTitulo].OpcaoPagamento; let ind = index" [hidden]="!ind">
+          <button type="button" class="btn btn-primary" [class.btn-smaller]="opcoesPg[this.apiRestService.dividasNetfone.data.Dividas.Divida[ind_parcelado].CodigoTitulo].OpcaoPagamento.length > 4" (click)="showPrazoFinalizacao(); pagarParceladoNetfone(ind, apiRestService.dividasNetfone.data.Dividas.Divida[ind_parcelado].CodigoTitulo, opcoesPg[this.apiRestService.dividasNetfone.data.Dividas.Divida[ind_parcelado].CodigoTitulo].OpcaoPagamento[ind].Plano)"> 
+              R$ {{ getOpcaoMovel(ind) }}
           </button>
         </div>
-        <div class="col-xs-12 col-sm-6" [class.col-lg-4]="opcoesPg[this.apiRestService.dividasClaroTv.Divida.DadosDivida[ind_parcelado].CodigoTitulo].OpcaoPagamento.length > 4"> 
-          <button type="button" class="btn btn-primary" [class.btn-smaller]="opcoesPg[this.apiRestService.dividasClaroTv.Divida.DadosDivida[ind_parcelado].CodigoTitulo].OpcaoPagamento.length > 4" (click)="hideOpcoesParcelamento()">
+        <div class="col-xs-12 col-sm-6" [class.col-lg-4]="opcoesPg[this.apiRestService.dividasNetfone.data.Dividas.Divida[ind_parcelado].CodigoTitulo].OpcaoPagamento.length > 4"> 
+          <button type="button" class="btn btn-primary" (click)="hideOpcoesParcelamento()" [class.btn-smaller]="opcoesPg[this.apiRestService.dividasNetfone.data.Dividas.Divida[ind_parcelado].CodigoTitulo].OpcaoPagamento.length > 4">
              Voltar
           </button>
         </div>  
@@ -98,26 +100,26 @@
     <app-prazo-finalizacao *ngIf="prazoFinalizacao" (clickVoltar)="showOpcoesParcelamento(0)" (clickVoltarAVista)="hideOpcoesParcelamento()"></app-prazo-finalizacao>
     <div class="loader-wrap-wrap" *ngIf="loader">  
         <div class="loader-wrap">
-          <div class="loader"></div>
+          <div class="loader"></div> 
         </div>  
       </div>
       
     <div [hidden]="opcoesParcelamento || prazoFinalizacao || loader" class="row"> 
-     <div class="col-xl-4" *ngFor="let div of apiRestService.dividasClaroTv.Divida.DadosDivida; let ind = index"> 
+     <div class="col-xl-4" *ngFor="let div of apiRestService.dividasNetfone.data.Dividas.Divida; let ind = index"> 
       <div class="metodo-pagamento up-30px up-15px-mobile">
         <div class="metodo-de-pagamento">
           <span class="font-weight-bold">Valor total: R$ {{ getValorTotal(div.CodigoTitulo) }} </span><br>
           <div *ngIf="div.Parcelas.ParcelaDivida.length">
-            <div *ngFor="let par of div.Parcelas.ParcelaDivida">
+            <!--<div *ngFor="let par of div.Parcelas.ParcelaDivida">
               Data Venc.: {{ par.Vencimento }}              
-            </div>
+            </div>-->
           </div>
           <div *ngIf="div.Parcelas.ParcelaDivida.Vencimento">
               Data Venc.: {{ div.Parcelas.ParcelaDivida.Vencimento }}
           </div>
         </div>
         <div class="row">  
-          <div class="col-6 pr-0"> 
+          <div class="col-6 pr-0">
             <button type="button" class="btn btn-primary" (click)="showPrazoFinalizacao(); pagarAVista(div.CodigoTitulo, getValorNegociar(div.CodigoTitulo), opcoesPg[div.CodigoTitulo].OpcaoPagamento.Plano)"> 
               À vista:<br> R$ {{ getValorNegociar(div.CodigoTitulo) }} 
             </button>
@@ -137,6 +139,6 @@
       </div>
     </div>
   </div>
-  </accordion-group> -->
+  </accordion-group>
    
 </accordion>

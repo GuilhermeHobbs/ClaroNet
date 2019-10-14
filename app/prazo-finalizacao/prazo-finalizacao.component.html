@@ -99,3 +99,30 @@
     </div>    
   </div>
 </div>  
+
+
+<div *ngIf="detalhesDivida" class="up-20 up-5-mobile font-16">
+  <!--<div class="row">
+    <div class="col-4 col-lg-2 font-weight-bold">Fatura-Venc</div>
+    <div class="col-5 col-md-6 col-lg-3 font-weight-bold">Descrição</div>
+    <div class="col-3 col-md-2 col-lg-1 font-weight-bold">Valor</div>
+    <div class="col-4 col-lg-2 font-weight-bold">Fatura-Venc</div>
+    <div class="col-5 col-md-6 col-lg-3 font-weight-bold">Descrição</div>
+    <div class="col-3 col-md-2 col-lg-1 font-weight-bold">Valor</div> -->
+    <div class="row parcela-row" *ngFor="let par of parcelas[0].Parcelas.ParcelaDivida; let ind = index">
+      <div class="col-1">{{ par.Vencimento }}</div>
+      <div class="col-2 font-15px">{{ par.DescricaoItemExtrato }} </div>
+      <div class="col-1">R$ {{ par.Valor }} </div>
+      <div class="col-2">Parcela: {{ par.CodigoParcela }}</div>
+
+      <div class="col-1">{{ parcelas[0].Parcelas.ParcelaDivida[ind+1].Vencimento }}</div>
+      <div class="col-2 font-15px">{{ parcelas[0].Parcelas.ParcelaDivida[ind+1].DescricaoItemExtrato }} </div>
+      <div class="col-1">R$ {{ parcelas[0].Parcelas.ParcelaDivida[ind+1].Valor }} </div>
+      <div class="col-2">Parcela: {{ parcelas[0].Parcelas.ParcelaDivida[ind+1].CodigoParcela }}</div>
+    </div> 
+
+  <div class="row">
+      <div class="col-4 font-weight-bold">Total</div>
+      <div class="col-8 font-weight-bold">R$ {{ total }}</div>
+  </div>    
+ </div> 

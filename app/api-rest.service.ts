@@ -225,11 +225,7 @@ export class ApiRestService {
   this.dividasTvVirtua = {
     data: {
       Dividas: {
-        Divida: [{ 
-          Parcelas: {
-            ParcelaDivida: [] 
-          }
-        }]
+        Divida: []
       }
     }  
   };                
@@ -238,11 +234,7 @@ export class ApiRestService {
   this.dividasNetfone = {
     data: {
       Dividas: {
-        Divida: [{ 
-          Parcelas: {
-            ParcelaDivida: [] 
-          }
-        }]
+        Divida: []
       }
     }  
   };
@@ -257,11 +249,11 @@ export class ApiRestService {
     
     switch (this.dividas.data.Dividas.Divida.Produto) {
       case "TV/VIRTUA": {
-        this.dividasTvVirtua.data.Dividas.Divida.push(this.dividas.Dividas.Divida);
+        this.dividasTvVirtua.data.Dividas.Divida.push(this.dividas.data.Dividas.Divida);
         break;
       } 
       case "NETFONE": {
-        this.dividasNetfone.data.Dividas.Divida.push(this.dividas.Dividas.Divida);
+        this.dividasNetfone.data.Dividas.Divida.push(this.dividas.data.Dividas.Divida);
         break;
       }
       
@@ -294,24 +286,25 @@ if (this.opcoesPg[this.dividasTvVirtua.data.Dividas.Divida[0].CodigoTitulo]) ret
 
 
  getAllOpcoesNetfone() {
-/*
-  if (this.opcoesPg[this.dividasNetfone.data.Dividas.DadosDivida[0].CodigoTitulo]) return true;
-   this.dividasNetfone.data.Dividas.DadosDivida.forEach ( (divida) => {
-   
-    this.opcoesPg[divida.CodigoTitulo] = new BehaviorSubject<OpcoesPagamento>({
-      Carregando: true,
-      OpcoesPagamento: {
-        OpcaoPagamento: {
-          ValorNegociar: "Aguarde...",
-        }
-      }
-    });  
 
-     this.getOpcoesPagamento(divida.CodigoTitulo).subscribe( (opc: OpcoesPagamento) => {
-      opc.Carregando = false;
-      this.opcoesPg[divida.CodigoTitulo].next(opc);
-      });
-    }); */
+  if (this.opcoesPg[this.dividasNetfone.data.Dividas.Divida[0].CodigoTitulo]) return true;  
+  this.dividasNetfone.data.Dividas.Divida.forEach ( (divida) => {
+  
+   this.opcoesPg[divida.CodigoTitulo] = new BehaviorSubject<OpcoesPagamento>({
+     Carregando: true,
+     data: {
+       OpcoesPagamento: {
+         OpcaoPagamento: {
+           ValorNegociar: "Aguarde...",
+         }
+       }
+     }  
+   });  
+    this.getOpcoesPagamento(divida.CodigoTitulo).subscribe( (opc: OpcoesPagamento) => {
+     opc.Carregando = false;
+     this.opcoesPg[divida.CodigoTitulo].next(opc);
+     });
+   });
    }
 
    doisDigitosDecimais (num: string) {

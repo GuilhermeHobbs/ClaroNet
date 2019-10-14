@@ -18,6 +18,10 @@
     font-weight: bold;
 }
 
+.parcela-row {
+    margin-top: 15px;
+}
+
 @media (max-width: 768px) {
  
     .btn {
