@@ -61,10 +61,16 @@ export class OpcoesRoutletComponent {
       this.showRecebaNossaLigacao = false;
       this.showAcordosAndamento = false;  
       this.logo_menor = false;
+      this.apiRestService.linkTelaFim = false;
     }
 
   voltarInicio() {
     window.open ("/");
   }
 
+  escolherData() {
+    this.apiRestService.linkTelaFim = false;
+    this.apiRestService.telaFinal = true;
+    this.showNegocieOnline = false;
+  }
 }

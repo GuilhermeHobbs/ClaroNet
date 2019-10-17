@@ -15,10 +15,9 @@ export class PrazoFinalizacaoComponent implements OnInit {
 
   minDate: Date;
   maxDate: Date;
-
-  public detalhesDivida = true;
+ 
   public dataPagamento: string;
-  public opcoesParcelamento: boolean = true;
+  public escolhaData = true;
   public fim: boolean;
   public sucesso: boolean;
   public erro: boolean;
@@ -33,10 +32,7 @@ export class PrazoFinalizacaoComponent implements OnInit {
   public emailRes = '';
   public numeroTitulo: string; 
 
-  public parcelas = [];
-  public total: string;
-
-  constructor(private localeService: BsLocaleService, private apiRestService: ApiRestService, private router: Router) {
+  constructor(private localeService: BsLocaleService, public apiRestService: ApiRestService, private router: Router) {
     this.localeService.use('pt-br');
     this.minDate = new Date();
     this.maxDate = new Date();
@@ -45,26 +41,6 @@ export class PrazoFinalizacaoComponent implements OnInit {
    }
 
   ngOnInit() {
-    if (this.apiRestService.opcoesPg[this.apiRestService.dividasTvVirtua.data.Dividas.Divida[0].CodigoTitulo]) {
-      this.apiRestService.opcoesPg[this.apiRestService.dividasTvVirtua.data.Dividas.Divida[0].CodigoTitulo].subscribe ( par => {
-        this.total = par.data.OpcoesPagamento.OpcaoPagamento[0].ValorOriginal;
-      })
-      this.parcelas = this.apiRestService.dividasTvVirtua.data.Dividas.Divida.filter(obj => {
-        return obj.CodigoTitulo === this.apiRestService.codTitulo
-      })
-    }    
-
-    else {
-      this.apiRestService.opcoesPg[this.apiRestService.dividasNetfone.data.Dividas.Divida[0].CodigoTitulo].subscribe ( par => {
-        this.total = par.data.OpcoesPagamento.OpcaoPagamento[0].ValorOriginal;
-      })
-      this.parcelas = this.apiRestService.dividasNetfone.data.Dividas.Divida.filter(obj => {
-        return obj.CodigoTitulo === this.apiRestService.codTitulo
-      })
-    }
-
-    console.log("parcelasTvVirtua=");
-    console.log(this.parcelas);
     
   }
 
@@ -90,13 +66,13 @@ export class PrazoFinalizacaoComponent implements OnInit {
   showFinalizacao() {
    if (this.dataPagamento) { 
     this.fim = true;
-    this.opcoesParcelamento = false;
+    this.escolhaData = false;
    } 
   }
 
   mudarData() {
     this.fim = false;
-    this.opcoesParcelamento = true;
+    this.escolhaData = true;
   }  
 
   voltar() {
@@ -159,17 +135,18 @@ export class PrazoFinalizacaoComponent implements OnInit {
   
   gravaAcordo () {
     this.loader = true;
+    this.erro = false;
     this.fim = false;
       if (this.apiRestService.parcelas.aVista) {
         console.log(this.dataPagamento.toLocaleString().slice(0,10));
         
-        this.apiRestService.gravaAcordo(this.apiRestService.codTitulo, this.apiRestService.cpfCnpj, this.apiRestService.devedor.data.Devedores[0].Devedor.CodigoDevedor, '1', this.dataPagamento.toLocaleString().slice(0,10), this.apiRestService.parcelas.aVista).subscribe(res => {
+        this.apiRestService.gravaAcordo(this.apiRestService.codTitulo, this.apiRestService.cpfCnpj, this.apiRestService.devedor.data.Devedores.Devedor[0].CodigoDevedor, '1', this.dataPagamento.toLocaleString().slice(0,10), this.apiRestService.parcelas.aVista).subscribe(res => {
           console.log(res);  
           this.loader = false;
-          if (res.Codigo === '12') {
+          if (res.data.Codigo === '12') {
             this.fim = false;
             this.sucesso = true;
-            this.codAcordo = res.CodigoAcordo;
+            this.codAcordo = res.data.CodigoAcordo;
             this.apiRestService.telaFinal = true;
            }
            else {
@@ -180,13 +157,13 @@ export class PrazoFinalizacaoComponent implements OnInit {
         });
       }
       else if (this.apiRestService.parcelas.primeira) {
-        this.apiRestService.gravaAcordo(this.apiRestService.codTitulo, this.apiRestService.cpfCnpj, this.apiRestService.devedor.data.Devedores[0].Devedor.CodigoDevedor, this.apiRestService.plano, this.dataPagamento.toLocaleString().slice(0,10), this.apiRestService.parcelas.primeira).subscribe(res => {
+        this.apiRestService.gravaAcordo(this.apiRestService.codTitulo, this.apiRestService.cpfCnpj, this.apiRestService.devedor.data.Devedores.Devedor[0].CodigoDevedor, this.apiRestService.plano, this.dataPagamento.toLocaleString().slice(0,10), this.apiRestService.parcelas.primeira).subscribe(res => {
           console.log(res);
           this.loader = false; 
-          if (res.Codigo === '12') {
+          if (res.data.Codigo === '12') {
             this.fim = false;
             this.sucesso = true;
-            this.codAcordo = res.CodigoAcordo;
+            this.codAcordo = res.data.CodigoAcordo;
             this.apiRestService.telaFinal = true;
            }
            else {

@@ -14,12 +14,16 @@ body, html {
     background: #f8f8f8;
 }
 
+a {
+  color: black;
+}
+
 a:hover {
   text-decoration: none;
 }
 
 .red {
-  color: #e32620;
+  color: #e32620 !important;
 }
 
 .mb-15 {
@@ -61,6 +65,27 @@ h3 {
 
 .font-16 {
   font-size: 16px;
+}
+
+.back-red {
+  background: #e32620;
+}
+
+.btn-primary {
+  border: 1px solid rgba(0,0,0,.125);
+}
+
+.btn-primary:hover {
+  background: rgba(0,0,0,.125);
+  border: 1px solid rgba(0,0,0,.125);
+}
+
+.btn-link {
+  color: black;
+}
+
+.up-30 {
+  margin-top: 30px;
 }
 
 @media (max-width: 1000px) {

@@ -38,19 +38,14 @@ export class AcordosAndamentoComponent implements OnInit {
   }
 
   getIcon(acordo) {
-    switch (acordo.NumeroTitulo.split(' ')[1]) {
-      case "Móvel": {
-        return "assets/icons/phone.jpg";
-      }
-      case "Internet": {
-        return "assets/icons/internet.jpg";
-      }
-      case "TV": {
+    switch (acordo.Produto) {
+      case "TV/VIRTUA": {
         return "assets/icons/tv.jpg";
       }
-      case "Fixo": {  
-        return "assets/icons/fixo.jpg";  
-    }
+      case "NETFONE": {
+        return "assets/icons/phone.jpg";
+      }
+      
    }
   }
 
@@ -58,16 +53,16 @@ export class AcordosAndamentoComponent implements OnInit {
     numeroTitulo = numeroTitulo.split('.')[0];
     this.loadingBoleto[ind] = true;
     console.log(codCodigoAcordo);
-    this.apiRestService.getBoletoAcordo(codAcordo, codCodigoAcordo).subscribe ((bol: Boleto) => {
+    this.apiRestService.getBoletoAcordo(codAcordo, codCodigoAcordo).subscribe (bol => {
        console.log(bol);
        this.loadingBoleto[ind] = false;
 
-       if (bol.BoletoAcordo) {
+       if (bol.data.BoletoAcordo) {
           //window.open ("boleto?data=" + encodeURIComponent(bol.BoletoAcordo.DataVencimento) + "&linha=" + bol.BoletoAcordo.LinhaDigitavel + "&valor=" + bol.BoletoAcordo.Valor + "&cliente=" + this.apiRestService.getNome() + "&contrato=" + numeroTitulo);
-          this.router.navigate(['/boleto'] , { queryParams: { data: bol.BoletoAcordo.DataVencimento, 
-            linha: bol.BoletoAcordo.LinhaDigitavel, 
-            valor: this.apiRestService.doisDigitosDecimais(bol.BoletoAcordo.Valor), 
-            cliente: this.apiRestService.devedor.data.Devedores[0].Devedor.Nome, 
+          this.router.navigate(['/boleto'] , { queryParams: { data: bol.data.BoletoAcordo.DataVencimento, 
+            linha: bol.data.BoletoAcordo.LinhaDigitavel, 
+            valor: this.apiRestService.doisDigitosDecimais(bol.data.BoletoAcordo.Valor), 
+            cliente: this.apiRestService.devedor.data.Devedores.Devedor[0].Nome, 
             contrato: numeroTitulo
           }}); 
 
@@ -108,17 +103,17 @@ export class AcordosAndamentoComponent implements OnInit {
     this.apiRestService.getDadosAcordo(codTitulo).subscribe (acc => { 
       console.log("acc=");
       console.log(acc);
-      if (acc.Acordo.DadosAcordo.ParcelasAcordo.ParcelaAcordo.length) codigoParcelaAcordo = acc.Acordo.DadosAcordo.ParcelasAcordo.ParcelaAcordo[0].CodigoParcelaAcordo;
-      else codigoParcelaAcordo = acc.Acordo.DadosAcordo.ParcelasAcordo.ParcelaAcordo.CodigoParcelaAcordo;
-      this.apiRestService.getBoletoAcordo(codAcordo, codigoParcelaAcordo).subscribe ((bol: Boleto) => { 
+      if (acc.data.Acordos.DadosAcordo.ParcelasAcordo.ParcelaAcordo.length) codigoParcelaAcordo = acc.data.Acordos.DadosAcordo.ParcelasAcordo.ParcelaAcordo[0].CodigoParcelaAcordo;
+      else codigoParcelaAcordo = acc.data.Acordos.DadosAcordo.ParcelasAcordo.ParcelaAcordo.CodigoParcelaAcordo;
+      this.apiRestService.getBoletoAcordo(codAcordo, codigoParcelaAcordo).subscribe (bol => { 
         this.loadingBoleto[ind] = false;
         this.accDividas = false;
         console.log("bol=");  
         console.log(bol);
                
-       if (bol.BoletoAcordo) {
+       if (bol.data.BoletoAcordo) {
          this.porSms = true;
-         this.boleto = bol; 
+         this.boleto = bol.data; 
        } else this.erroBoleto = true;
               
     });
@@ -137,19 +132,17 @@ export class AcordosAndamentoComponent implements OnInit {
     this.apiRestService.getDadosAcordo(codTitulo).subscribe (acc => { 
       console.log("acc=");
       console.log(acc);
-      if (acc.Acordo.DadosAcordo.ParcelasAcordo.ParcelaAcordo.length) codigoParcelaAcordo = acc.Acordo.DadosAcordo.ParcelasAcordo.ParcelaAcordo[0].CodigoParcelaAcordo;
-      else codigoParcelaAcordo = acc.Acordo.DadosAcordo.ParcelasAcordo.ParcelaAcordo.CodigoParcelaAcordo;
-      this.apiRestService.getBoletoAcordo(codAcordo, codigoParcelaAcordo).subscribe ((bol: Boleto) => { 
-        //this.loadingBoleto[ind] = false;
-        //this.accDividas = false;
+      if (acc.data.Acordos.DadosAcordo.ParcelasAcordo.ParcelaAcordo.length) codigoParcelaAcordo = acc.data.Acordos.DadosAcordo.ParcelasAcordo.ParcelaAcordo[0].CodigoParcelaAcordo;
+      else codigoParcelaAcordo = acc.data.Acordos.DadosAcordo.ParcelasAcordo.ParcelaAcordo.CodigoParcelaAcordo;
+      this.apiRestService.getBoletoAcordo(codAcordo, codigoParcelaAcordo).subscribe (bol => { 
         console.log("bol=");  
         console.log(bol);
                
-       if (bol.BoletoAcordo) {
+       if (bol.data.BoletoAcordo) {
         this.loadingBoleto[ind] = false;
         this.accDividas = false;
         this.porEmail = true;
-        this.boleto = bol; 
+        this.boleto = bol.data; 
        } else this.erroBoleto = true;
               
     });

@@ -12,18 +12,15 @@ export class NegocieOnlineComponent implements OnInit {
   constructor(public apiRestService: ApiRestService, private cd: ChangeDetectorRef) { 
    }
 
-
-  public mostrarAbas = [true, true];
-
   public loadingParcelados: boolean;
   public loader: boolean;
+  public OutraCobradora: boolean;
 
-  public showFatura: boolean = true;
   public showHeader: boolean = true;
   public opcoesParcelamento: boolean;
-  public prazoFinalizacao: boolean;
   public movelLabel: boolean;
   public opcoesParcelamentoLabel: boolean;
+  public mostrarExtrato: boolean;
  
   public parcelado = { };
   public ind_parcelado: number; 
@@ -44,7 +41,7 @@ export class NegocieOnlineComponent implements OnInit {
  }
 
  botaoNaoClicavel() {
-   return this.mostrarAbas.every(Boolean);
+   return this.apiRestService.mostrarAbas.every(Boolean);
  }
 
   pagarAVista(codTitulo: string, valor: string, plano: string) {
@@ -80,7 +77,7 @@ export class NegocieOnlineComponent implements OnInit {
 
   getAllOpcoesTvVirtua() { 
     
-    this.mostrarAbas = [true, false];
+    this.apiRestService.mostrarAbas = [true, false];
 
     this.apiRestService.getAllOpcoesTvVirtua();  
     this.loader = true;
@@ -94,7 +91,7 @@ export class NegocieOnlineComponent implements OnInit {
   }
 
   getAllOpcoesNetfone() {
-    this.mostrarAbas = [false, true];
+    this.apiRestService.mostrarAbas = [false, true];
 
     this.apiRestService.getAllOpcoesNetfone();
     this.loader = true;  
@@ -112,6 +109,10 @@ export class NegocieOnlineComponent implements OnInit {
     let dadosDividaCod = this.dadosDivida.filter((dados) => dados.CodigoTitulo === cod);
     
     this.apiRestService.opcoesPg[dadosDividaCod[0].CodigoTitulo].subscribe(res => {
+      if (res.OutraCobradora) {
+        this.OutraCobradora = true;
+        return;
+      }
       this.opcoesPg[dadosDividaCod[0].CodigoTitulo] = res.data.OpcoesPagamento;
         console.log("RES.OPCOESPAGAMENTO=");
         console.log(res.data.OpcoesPagamento);
@@ -153,27 +154,23 @@ export class NegocieOnlineComponent implements OnInit {
   }
 
   getOpcaoNetfone (ind: number) {
-  //  return this.apiRestService.doisDigitosDecimais (this.opcoesPg[this.apiRestService.dividasNetfone.data.Dividas.DadosDivida[this.ind_parcelado].CodigoTitulo].OpcaoPagamento[ind].ValorPrimeira) + " + " + ind + " X R$ " + this.apiRestService.doisDigitosDecimais (this.opcoesPg[this.apiRestService.dividasNetfone.data.Dividas.DadosDivida[this.ind_parcelado].CodigoTitulo].OpcaoPagamento[ind].ValorDemaisParcelas);
+    return this.apiRestService.doisDigitosDecimais (this.opcoesPg[this.apiRestService.dividasNetfone.data.Dividas.Divida[this.ind_parcelado].CodigoTitulo].OpcaoPagamento[ind].ValorPrimeira) + " + " + ind + " X R$ " + this.apiRestService.doisDigitosDecimais (this.opcoesPg[this.apiRestService.dividasNetfone.data.Dividas.Divida[this.ind_parcelado].CodigoTitulo].OpcaoPagamento[ind].ValorDemaisParcelas);
   } 
 
   getOpcaoTvVirtua (ind: number) {
  
-   /// return this.apiRestService.doisDigitosDecimais (this.opcoesPg[this.apiRestService.dividasTvVirtua.data.Dividas.DadosDivida[this.ind_parcelado].CodigoTitulo].OpcaoPagamento[ind].ValorPrimeira) + " + " + ind + " X R$ " + this.apiRestService.doisDigitosDecimais (this.opcoesPg[this.apiRestService.dividasTvVirtua.data.Dividas.DadosDivida[this.ind_parcelado].CodigoTitulo].OpcaoPagamento[ind].ValorDemaisParcelas);
+    return this.apiRestService.doisDigitosDecimais (this.opcoesPg[this.apiRestService.dividasTvVirtua.data.Dividas.Divida[this.ind_parcelado].CodigoTitulo].OpcaoPagamento[ind].ValorPrimeira) + " + " + ind + " X R$ " + this.apiRestService.doisDigitosDecimais (this.opcoesPg[this.apiRestService.dividasTvVirtua.data.Dividas.Divida[this.ind_parcelado].CodigoTitulo].OpcaoPagamento[ind].ValorDemaisParcelas);
   }
 
-  showPrazoFinalizacao() {
-    this.apiRestService.showDisclaimer = true;
-    
-    this.opcoesParcelamentoLabel = false;
-    this.prazoFinalizacao = true;
+  showExtrato() {
+    this.mostrarExtrato = true;
     this.opcoesParcelamento = false;
+    this.apiRestService.linkTelaFim = true;
   }
 
   showOpcoesParcelamento(ind) {
 
     this.opcoesParcelamento = true;
-    this.showFatura = false;
-    this.prazoFinalizacao = false;
     this.movelLabel = false;
     this.opcoesParcelamentoLabel = true;
 
@@ -184,8 +181,6 @@ export class NegocieOnlineComponent implements OnInit {
   hideOpcoesParcelamento() {
 
     this.opcoesParcelamento = false;
-    this.showFatura = true;
-    this.prazoFinalizacao = false;
   }  
 
 }

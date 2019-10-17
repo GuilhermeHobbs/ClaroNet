@@ -27,13 +27,13 @@
              <p class="titulo-mobile">{{ acordo.NumeroTitulo.split(' ')[1] }}</p>
           </div>  
             <div class="col-sm-3 col-4 btn-linha no-padd-left no-padd-right">  
-                Data: {{ acordo.DataAcordo }}
+                Data: {{ acordo.DataAcordo.split(' ')[0] }}
             </div>              
           <div class="col-5 btn-linha">
               Status: {{ acordo.StatusAcordo }}
           </div>
           <div class="col-sm-2 col-3 btn-linha">
-              Filial: {{ acordo.FilialAcordo }}
+              Filial: {{ acordo.Filial }}
           </div>
         </div>
         </button>     

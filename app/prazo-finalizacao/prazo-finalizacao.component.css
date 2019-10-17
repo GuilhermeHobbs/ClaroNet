@@ -1,3 +1,14 @@
+.produto-heading {
+    line-height: 44px;
+    font-size: 22px;
+    margin-left: 10px;    
+}
+        
+.produto-img {
+    height: 45px;
+    float: left;
+}
+
 .btn {
     width: 100%;
     font-size: 19px;
@@ -20,7 +31,34 @@
 
 .parcela-row {
     margin-top: 15px;
+    border-bottom: 1px solid;
 }
+
+.btn-voltar {
+    width: 25%;
+}    
+
+.panel-collapse > div {
+    padding-top: 0 !important
+}
+
+
+@media (min-width: 768px) {
+
+    .btn-accordion {
+        margin: 0;
+        padding: 0;
+    }
+
+    .btn-voltar {
+        float: right;
+        position: absolute;
+        right: 10px;
+        top: 20px;
+    }
+    
+}    
+
 
 @media (max-width: 768px) {
  

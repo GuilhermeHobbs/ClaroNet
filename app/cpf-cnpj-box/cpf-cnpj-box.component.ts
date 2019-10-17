@@ -89,7 +89,12 @@ export class CpfCnpjBoxComponent implements OnInit {
   valida() {
     
     const cpfCnpj = this.cpf_cnpj.replace(/[`\-.\{\}\[\]\\\/]/gi, '');
-    this.clearAlerts();     
+    this.clearAlerts(); 
+    
+    if (cpfCnpj === '11111111111') {
+      this.erro = true;
+      return;
+    }
 
     switch (cpfCnpj.length) {
      case 11: {

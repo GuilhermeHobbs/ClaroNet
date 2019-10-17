@@ -9,6 +9,8 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 })
 export class ApiRestService {
 
+  public mostrarAbas = [true, true];
+
   public showDisclaimer = true;
   
   public acordos: any;
@@ -25,6 +27,8 @@ export class ApiRestService {
 
   public dividasTvVirtua: Divida;
   public dividasNetfone: Divida;
+  public linkTelaFim: boolean;
+
 
   public opcoesPg = { }; 
 
@@ -79,8 +83,8 @@ export class ApiRestService {
           if (divida.data.Codigo !== '23' && divida.data.Codigo !== '10') return 2;
           
           this.dividas = divida;
-          if (divida.data.Acordo) {
-            this.acordos = divida.data.Acordo.DadosAcordo;
+          if (divida.data.Acordos) {
+            this.acordos = divida.data.Acordos.DadosAcordo;
             return 1;
           }
           if (divida.data.Dividas) return 1;
@@ -153,11 +157,11 @@ export class ApiRestService {
     ) 
  }
  
- getBoletoAcordo(codAcordo: string, codCodigoAcordo: string): Observable<Boleto> {
+ getBoletoAcordo(codAcordo: string, codCodigoAcordo: string): Observable<any> {
   const params = new HttpParams().set('codigoacordo', codAcordo)
                                  .set('codigoparcelaacordo', codCodigoAcordo)
                                  .set('cpf', this.cpfCnpj);    
-  return this.http.post<Boleto>(this.urlBoletoAcordo, params, this.httpOptions).pipe(
+  return this.http.post(this.urlBoletoAcordo, params, this.httpOptions).pipe(
     retry(100),
     catchError(() => {
       return EMPTY;
@@ -167,11 +171,10 @@ export class ApiRestService {
  }
 
  enviaSms(codigobarra: string, vencimento: string, valor: string): Observable<any> {
-  const params = new HttpParams().set('nome', this.devedor.data.Devedores[0].Devedor.Nome.toLocaleUpperCase())
-                                 .set('codigobarra', codigobarra)
-                                 .set('vencimento', vencimento)
-                                 .set('valor', valor)    
-                                 .set('numeroenvio', this.telefone);
+  let nome = this.devedor.data.Devedores.Devedor[0].Nome.toLocaleUpperCase().split(' ')[0];
+  const params = new HttpParams().set('cpf', this.cpfCnpj)
+                                 .set('numeroenvio', this.telefone)
+                                 .set('textosms', nome + ", Segue código de barras da sua conta Net com vencimento " + vencimento + ", Valor: R$ " + valor + ", Código: " + codigobarra);
   return this.http.post(this.urlEnviaSms, params, this.httpOptions).pipe(
     retry(100),
     catchError(() => {
@@ -202,7 +205,7 @@ export class ApiRestService {
   
 
  enviaBoletoEmail(contrato: string, valor: string, vencimento: string, linha: string, email: string): Observable<any> {
-  const params = new HttpParams().set('cliente', this.devedor.data.Devedores[0].Devedor.Nome.toLocaleUpperCase())
+  const params = new HttpParams().set('cliente', this.devedor.data.Devedores.Devedor[0].Nome.toLocaleUpperCase())
                                  .set('cpf', this.cpfCnpj)
                                  .set('contrato', contrato)
                                  .set('valor', valor)
@@ -279,6 +282,7 @@ if (this.opcoesPg[this.dividasTvVirtua.data.Dividas.Divida[0].CodigoTitulo]) ret
   });  
    this.getOpcoesPagamento(divida.CodigoTitulo).subscribe( (opc: OpcoesPagamento) => {
     opc.Carregando = false;
+    if (opc.data.Codigo === '24') opc.OutraCobradora = true;
     this.opcoesPg[divida.CodigoTitulo].next(opc);
     });
   }); 
@@ -302,6 +306,7 @@ if (this.opcoesPg[this.dividasTvVirtua.data.Dividas.Divida[0].CodigoTitulo]) ret
    });  
     this.getOpcoesPagamento(divida.CodigoTitulo).subscribe( (opc: OpcoesPagamento) => {
      opc.Carregando = false;
+     if (opc.data.Codigo === '24') opc.OutraCobradora = true;
      this.opcoesPg[divida.CodigoTitulo].next(opc);
      });
    });
@@ -336,13 +341,9 @@ if (this.opcoesPg[this.dividasTvVirtua.data.Dividas.Divida[0].CodigoTitulo]) ret
             }
         }>  
       }
-      Acordo?: any  
+      Acordos?: any  
     }
-
-
-    Acordo?: { 
-      DadosAcordo: Array<Acordo>;
-    }  
+ 
   }
 
   export class Devedor {
@@ -361,7 +362,9 @@ if (this.opcoesPg[this.dividasTvVirtua.data.Dividas.Divida[0].CodigoTitulo]) ret
 
   export class OpcoesPagamento {
     Carregando?: boolean;
+    OutraCobradora?: boolean;
     data: {
+      Codigo?: string;
       OpcoesPagamento?: {
         OpcaoPagamento: {
           Plano?: number;
@@ -385,7 +388,7 @@ if (this.opcoesPg[this.dividasTvVirtua.data.Dividas.Divida[0].CodigoTitulo]) ret
         CodigoDevedor: string;
         CodigoTitulo: string;
         DataAcordo: string;
-        FilialAcordo: string;
+        Filial: string;
         NumeroTitulo: string;
         StatusAcordo: string;
         ParcelasAcordo: {
