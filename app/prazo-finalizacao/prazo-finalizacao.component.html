@@ -7,11 +7,11 @@
       </div>        
     </button> 
     
-   <!-- <button class="btn btn-link btn-block clearfix btn-accordion" accordion-heading *ngIf="apiRestService.mostrarAbas[1]">
+    <button class="btn btn-link btn-block clearfix btn-accordion" accordion-heading *ngIf="apiRestService.mostrarAbas[1]">
       <img src="assets/icons/phone.jpg" class="produto-img" alt="...">
       <div class="pull-left float-left produto-heading"><span>NETFONE</span> 
       </div>        
-    </button> -->
+    </button>
 
 
     <div *ngIf="emailRes" class="mb-15">
@@ -42,6 +42,7 @@
     <div *ngIf="sucesso">
       <h4 class="font-weight-bold"> O Acordo foi realizado com sucesso!</h4>
       <br>
+      <p>Feito acordo em {{ vezesParcelado() + 1 }} parcelas no valor de R$ {{ primeiraParcelado() }} + {{ vezesParcelado() }} x R$ {{ outrasParcelado() }} com vencimento para o {{ primeiraParcelado()? 'primeiro':'' }} pagamento: {{ (dataPagamento.toLocaleString().indexOf(',') > -1)? dataPagamento.toLocaleString().slice(0, 10) : dataPagamento.toLocaleString().split(' ')[0] }}</p>
       <h4>Como deseja receber seu boleto?</h4>
       <br>
       <div class="row">

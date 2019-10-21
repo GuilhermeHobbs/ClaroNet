@@ -4,7 +4,7 @@
  
     <div class="back-beje col-lg-10">
                             
-            <p class="link-voltar btn-link font-weight-bold red" (click)="voltarMenu()" [hidden]="showOpcoes || apiRestService.telaFinal">Voltar ao Menu Principal</p>        
+            <p class="link-voltar btn-link font-weight-bold red mobile-left" (click)="voltarMenu()" [hidden]="showOpcoes || apiRestService.telaFinal">Voltar ao Menu Principal</p>        
             <p class="link-voltar btn-link font-weight-bold red" (click)="voltarInicio()" *ngIf="apiRestService.telaFinal">Fazer nova consulta de CPF ou CNPJ</p>        
             <a class="btn btn-primary back-red btn-negociar" (click)="escolherData()" *ngIf="apiRestService.linkTelaFim">Negociar débito</a>        
             <img src="assets/img/logo.png" alt="Claro" class="logo" [hidden]="logo_menor">

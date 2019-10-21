@@ -13,9 +13,18 @@ export class ExtratoDebitosComponent implements OnInit {
   public parcelas = [];
   public total: string;
 
+  public parcelaHalfNum: number;
+  public parcelaHalf = [];
+
+
   ngOnInit() {
 
-    if (this.apiRestService.opcoesPg[this.apiRestService.dividasTvVirtua.data.Dividas.Divida[0].CodigoTitulo]) {
+    console.log("this.apiRestService.dividasTvVirtua=");
+    console.log(this.apiRestService.dividasTvVirtua);
+
+    this.apiRestService.showDisclaimer = false;
+
+    if (this.apiRestService.dividasTvVirtua.data.Dividas.Divida.length && this.apiRestService.opcoesPg[this.apiRestService.dividasTvVirtua.data.Dividas.Divida[0].CodigoTitulo]) {
       this.apiRestService.opcoesPg[this.apiRestService.dividasTvVirtua.data.Dividas.Divida[0].CodigoTitulo].subscribe ( par => {
         this.total = par.data.OpcoesPagamento.OpcaoPagamento[0].ValorOriginal;
       })
@@ -34,6 +43,12 @@ export class ExtratoDebitosComponent implements OnInit {
     }
     console.log("PARCELAS=");
     console.log(this.parcelas[0].Parcelas.ParcelaDivida);
+  
+    this.parcelaHalfNum = Math.ceil(this.parcelas[0].Parcelas.ParcelaDivida.length / 2);
+    this.parcelaHalf.length = this.parcelaHalfNum;
+
+    //this.parcelaHalf.splice(0, this.parcelaHalfNum);
+  
   }
 
 }

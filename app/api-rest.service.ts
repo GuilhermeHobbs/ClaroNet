@@ -32,23 +32,20 @@ export class ApiRestService {
 
   public opcoesPg = { }; 
 
-  //private urlDadosDevedor = 'https://my-json-server.typicode.com/GuilhermeHobbs/devedor/devedores'; //'http://172.22.4.33:8085/landingpage/apiresposta/apirequest_getdadosdevedor.php';
-  //private urlDadosDevedor = 'http://172.22.4.33:8085/landingpage/apiresposta/apirequest_getdadosdevedor.php';
+  //private urlDadosDevedor = 'https://my-json-server.typicode.com/GuilhermeHobbs/devedornet/devedornet';
   public urlDadosDevedor = 'http://186.215.156.250:8085/w-api/net/GetDadosDevedor';
   //private urlDadosDevedor = 'apiresposta/apirequest_getdadosdevedor.php';
-  //private urlDadosDivida = 'https://my-json-server.typicode.com/GuilhermeHobbs/devedor/divida';   //'http://172.22.4.33:8085/landingpage/apiresposta/apirequest_getdadosdivida.php';  
-  //private urlDadosDivida = 'http://172.22.4.33:8085/landingpage/apiresposta/apirequest_getdadosdivida.php';
+  //private urlDadosDivida = 'https://my-json-server.typicode.com/GuilhermeHobbs/dividanet/dividanet';
   private urlDadosDivida = 'http://186.215.156.250:8085/w-api/net/GetDadosDivida';
   //private urlDadosDivida = 'apiresposta/apirequest_getdadosdivida.php';
-  //private urlOpcoesPagamento = 'https://my-json-server.typicode.com/GuilhermeHobbs/opcoes/opcoes'; //'http://172.22.4.33:8085/landingpage/apiresposta/apirequest_getdadosopcoespagamento.php'
-  //private urlOpcoesPagamento = 'http://172.22.4.33:8085/landingpage/apiresposta/apirequest_getdadosopcoespagamento.php'
+  //private urlOpcoesPagamento = 'https://my-json-server.typicode.com/GuilhermeHobbs/opcoesnet/opcoesnet'; 
   private urlOpcoesPagamento = 'http://186.215.156.250:8085/w-api/net/GetOpcoesPagamento';
   //private urlOpcoesPagamento = 'apiresposta/apirequest_getdadosopcoespagamento.php';
   //private urlDadosAcordo = 'https://my-json-server.typicode.com/GuilhermeHobbs/dadosAcordo/acordo';  // 'http://172.22.4.33:8085/landingpage/apiresposta/apirequest_getdadosacordo.php';
   //private urlDadosAcordo = 'http://172.22.4.33:8085/landingpage/apiresposta/apirequest_getdadosacordo.php';
   private urlDadosAcordo = 'http://186.215.156.250:8085/w-api/net/GetDadosAcordo';
   //private urlDadosAcordo = 'apiresposta/apirequest_getdadosacordo.php';
-  //private urlGravaAcordo = 'https://my-json-server.typicode.com/GuilhermeHobbs/gravaAcordo/gravar';
+  //private urlGravaAcordo = 'https://my-json-server.typicode.com/GuilhermeHobbs/gravanet/gravanet';
   //private urlGravaAcordo = 'http://172.22.4.33:8085/landingpage/apiresposta/apirequest_gravaacordo.php';
   private urlGravaAcordo = 'http://186.215.156.250:8085/w-api/net/GravarAcordo';
   //private urlGravaAcordo = 'apiresposta/apirequest_gravaacordo.php';
@@ -148,7 +145,7 @@ export class ApiRestService {
  getDadosAcordo(codTitulo: string): Observable<any> {
   const cpfCnpjParam = new HttpParams().set('codigotitulo', codTitulo)
                                        .set('cpf', this.cpfCnpj);
-  return this.http.post<any>(this.urlDadosAcordo, cpfCnpjParam, this.httpOptions).pipe(
+  return this.http.post(this.urlDadosAcordo, cpfCnpjParam, this.httpOptions).pipe(
     retry(100),
     catchError(() => {
       return EMPTY;
@@ -314,8 +311,10 @@ if (this.opcoesPg[this.dividasTvVirtua.data.Dividas.Divida[0].CodigoTitulo]) ret
 
    doisDigitosDecimais (num: string) {
     num = num.replace(',','.');
+    console.log(num.indexOf('.'));
     if (num.indexOf('.') === num.length-2) return num + '0';
-    else return num;
+    if (num.indexOf('.') === -1) { console.log ('num='); console.log (num); return num + '.00'; }
+     return num;
   }
 
 }

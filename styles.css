@@ -122,6 +122,10 @@ h3 {
     margin-bottom: 0;
   }
 
+  .mobile-left {
+    text-align: left !important;
+  }
+
 }
     
 .loader-wrap {

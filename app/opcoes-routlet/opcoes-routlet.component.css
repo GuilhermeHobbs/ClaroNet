@@ -83,6 +83,11 @@ h3 {
 
 @media (max-width: 768px) {
 
+    .btn-negociar { 
+     right: 30px;
+     top: 5px;
+    }   
+
     .fiz-pagamento-ok {
         margin-top: 10px;
     }

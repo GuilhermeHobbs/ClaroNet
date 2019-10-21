@@ -1,0 +1,12 @@
+.parcela-row {
+    margin-top: 15px;
+    border-bottom: 1px solid;
+}
+
+@media (max-width: 768px) {
+
+    .parcela-row-mobile {
+        border-bottom: 1px solid;
+    }
+
+}    

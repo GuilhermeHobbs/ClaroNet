@@ -122,7 +122,7 @@
         </div>
         <div class="row">  
           <div class="col-6 pr-0">
-            <button type="button" class="btn btn-primary back-red" (click)="showPrazoFinalizacao(); pagarAVista(div.CodigoTitulo, getValorNegociar(div.CodigoTitulo), opcoesPg[div.CodigoTitulo].OpcaoPagamento.Plano)"> 
+            <button type="button" class="btn btn-primary back-red" (click)="showExtrato(); pagarAVista(div.CodigoTitulo, getValorNegociar(div.CodigoTitulo), opcoesPg[div.CodigoTitulo].OpcaoPagamento.Plano)"> 
               À vista:<br> R$ {{ getValorNegociar(div.CodigoTitulo) }} 
             </button>
           </div>

@@ -1,3 +1,5 @@
+<h3 class="text-center font-weight-bold up-30">Fatura</h3>
+
 <div class="up-30 up-5-mobile font-16">
     <!--<div class="row">
       <div class="col-4 col-lg-2 font-weight-bold">Fatura-Venc</div>
@@ -6,19 +8,18 @@
       <div class="col-4 col-lg-2 font-weight-bold">Fatura-Venc</div>
       <div class="col-5 col-md-6 col-lg-3 font-weight-bold">Descrição</div>
       <div class="col-3 col-md-2 col-lg-1 font-weight-bold">Valor</div> -->
-      <div class="row parcela-row" *ngFor="let par of parcelas[0].Parcelas.ParcelaDivida; let ind = index">
-        <div class="col-3 col-lg-1"> {{ par.Vencimento }} </div>
-        <div class="col-3 col-lg-2 font-15px">{{ par.DescricaoItemExtrato }} </div>
-        <div class="col-3 col-lg-1">R$ {{ par.Valor }} </div>
-        <div class="col-3 col-lg-2">Parcela: {{ par.CodigoParcela }}</div>
-          <div class="col-3 col-lg-1" *ngIf="parcelas[0].Parcelas.ParcelaDivida[ind+1]"> {{ parcelas[0].Parcelas.ParcelaDivida[ind+1].Vencimento }}</div>
-          <div class="col-3 col-lg-2 font-15px" *ngIf="parcelas[0].Parcelas.ParcelaDivida[ind+1]"> {{ parcelas[0].Parcelas.ParcelaDivida[ind+1].DescricaoItemExtrato }} </div>
-          <div class="col-3 col-lg-1" *ngIf="parcelas[0].Parcelas.ParcelaDivida[ind+1]">R$ {{ parcelas[0].Parcelas.ParcelaDivida[ind+1].Valor }} </div>
-          <div class="col-3 col-lg-2" *ngIf="parcelas[0].Parcelas.ParcelaDivida[ind+1]">Parcela: {{ parcelas[0].Parcelas.ParcelaDivida[ind+1].CodigoParcela }}</div>
-  
-  
-        <div *ngIf=" ind === parcelas[0].Parcelas.ParcelaDivida.length - 1" class="col-2 font-weight-bold">Total</div>
-        <div *ngIf=" ind === parcelas[0].Parcelas.ParcelaDivida.length - 1" class="col-4 font-weight-bold">R$ {{ total }}</div>
+      
+      <div class="parcela-row row" *ngFor="let par of parcelaHalf; let ind = index">
+        <div class="col-3 col-lg-1 parcela-row-mobile"> {{ parcelas[0].Parcelas.ParcelaDivida[ind].Vencimento }} </div>
+        <div class="col-4 col-lg-2 font-15px pl-0 parcela-row-mobile">{{ parcelas[0].Parcelas.ParcelaDivida[ind].DescricaoItemExtrato }} </div>
+        <div class="col-2 col-lg-1 text-right parcela-row-mobile">R$ {{ apiRestService.doisDigitosDecimais(parcelas[0].Parcelas.ParcelaDivida[ind].Valor) }} </div>
+        <div class="col-3 col-lg-2 parcela-row-mobile">Parcela: {{ parcelas[0].Parcelas.ParcelaDivida[ind].CodigoParcela }}</div> 
+          <div class="col-3 col-lg-1  " *ngIf="parcelas[0].Parcelas.ParcelaDivida[ind  + parcelaHalfNum]"> {{ parcelas[0].Parcelas.ParcelaDivida[ind  + parcelaHalfNum].Vencimento }}</div>
+          <div class="col-4 col-lg-2 font-15px pl-0  " *ngIf="parcelas[0].Parcelas.ParcelaDivida[ind  + parcelaHalfNum]"> {{ parcelas[0].Parcelas.ParcelaDivida[ind + parcelaHalfNum].DescricaoItemExtrato }} </div>
+          <div class="col-2 col-lg-1 text-right  " *ngIf="parcelas[0].Parcelas.ParcelaDivida[ind  + parcelaHalfNum]">R$ {{ apiRestService.doisDigitosDecimais(parcelas[0].Parcelas.ParcelaDivida[ind + parcelaHalfNum].Valor) }} </div> 
+          <div class="col-3 col-lg-2  " *ngIf="parcelas[0].Parcelas.ParcelaDivida[ind  + parcelaHalfNum]">Parcela: {{ parcelas[0].Parcelas.ParcelaDivida[ind  + parcelaHalfNum].CodigoParcela }}</div>
+        <div *ngIf=" ind === parcelaHalfNum - 1" class="col-6 col-lg-3 font-weight-bold mb-15">Total</div>
+        <div *ngIf=" ind === parcelaHalfNum - 1" class="col-6 col-lg-3 font-weight-bold mb-15">R$ {{ total }}</div>
     </div>    
    </div> 
   

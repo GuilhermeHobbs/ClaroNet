@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef, HostListener } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, HostListener, OnDestroy } from '@angular/core';
 import { ApiRestService, Divida, OpcoesPagamento } from '../api-rest.service';
 
 
@@ -7,11 +7,15 @@ import { ApiRestService, Divida, OpcoesPagamento } from '../api-rest.service';
   templateUrl: './negocie-online.component.html',
   styleUrls: ['./negocie-online.component.css']
 })
-export class NegocieOnlineComponent implements OnInit {
+export class NegocieOnlineComponent implements OnInit, OnDestroy {
 
   constructor(public apiRestService: ApiRestService, private cd: ChangeDetectorRef) { 
    }
 
+   ngOnDestroy() {
+     this.cd.detach();
+   }
+ 
   public loadingParcelados: boolean;
   public loader: boolean;
   public OutraCobradora: boolean;
@@ -127,12 +131,12 @@ export class NegocieOnlineComponent implements OnInit {
 
   getValorTotal (cod: string) {
     if (this.opcoesPg[cod] && !this.opcoesPg[cod].Carregando) {
-      if (this.opcoesPg[cod].OpcaoPagamento.ValorCorrigido) {
-     //   if (+this.opcoesPg[cod].OpcaoPagamento.ValorCorrigido.replace(',','.') < 45.00) this.parcelado[cod] = 1;        
-        return this.apiRestService.doisDigitosDecimais(this.opcoesPg[cod].OpcaoPagamento.ValorCorrigido);
+      if (this.opcoesPg[cod].OpcaoPagamento.ValorOriginal) {
+     //   if (+this.opcoesPg[cod].OpcaoPagamento.ValorOriginal.replace(',','.') < 45.00) this.parcelado[cod] = 1;        
+        return this.apiRestService.doisDigitosDecimais(this.opcoesPg[cod].OpcaoPagamento.ValorOriginal);
       } else if (this.opcoesPg[cod].OpcaoPagamento.length) {
         this.parcelado[cod] = 2;
-        return this.apiRestService.doisDigitosDecimais(this.opcoesPg[cod].OpcaoPagamento[0].ValorCorrigido);
+        return this.apiRestService.doisDigitosDecimais(this.opcoesPg[cod].OpcaoPagamento[0].ValorOriginal);
       }  
     }
     else return "";      
