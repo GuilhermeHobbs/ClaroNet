@@ -30,13 +30,12 @@ export class PrazoFinalizacaoComponent implements OnInit {
   public porEmail: boolean;
   public smsRes = '';
   public emailRes = '';
-  public numeroTitulo: string; 
 
   constructor(private localeService: BsLocaleService, public apiRestService: ApiRestService, private router: Router) {
     this.localeService.use('pt-br');
     this.minDate = new Date();
     this.maxDate = new Date();
-    this.maxDate.setDate(this.maxDate.getDate() + 10);
+    this.maxDate.setDate(this.maxDate.getDate() + 8);
 
    }
 
@@ -45,7 +44,7 @@ export class PrazoFinalizacaoComponent implements OnInit {
   }
 
   enviarEmail() {
-    this.apiRestService.enviaBoletoEmail(this.numeroTitulo, this.boleto.BoletoAcordo.Valor, this.boleto.BoletoAcordo.DataVencimento, this.boleto.BoletoAcordo.LinhaDigitavel, this.apiRestService.email).subscribe(res => {
+    this.apiRestService.enviaBoletoEmail(this.apiRestService.devedor.data.Devedores.Devedor[0].Contrato, this.boleto.data.BoletoAcordo.Valor, this.boleto.data.BoletoAcordo.DataVencimento, this.boleto.data.BoletoAcordo.LinhaDigitavel, this.apiRestService.email).subscribe(res => {
       this.emailRes = res.message;
       this.porEmail = false;
       this.sucesso = true;
@@ -89,10 +88,12 @@ export class PrazoFinalizacaoComponent implements OnInit {
 
   primeiraParcelado() {
     if (this.apiRestService.parcelas.primeira) return this.apiRestService.doisDigitosDecimais (this.apiRestService.parcelas.primeira);
+    else return this.apiRestService.doisDigitosDecimais (this.apiRestService.parcelas.aVista);
   }
 
   vezesParcelado() {
     if (this.apiRestService.parcelas.vezes) return this.apiRestService.parcelas.vezes;
+    else return 0;
   }
 
   outrasParcelado() {
@@ -107,19 +108,17 @@ export class PrazoFinalizacaoComponent implements OnInit {
     this.apiRestService.getDadosAcordo(this.apiRestService.codTitulo).subscribe (acc => {
       console.log("acc=");
       console.log(acc);
-      if (acc.Acordo.DadosAcordo.ParcelasAcordo.ParcelaAcordo.length) codigoParcelaAcordo = acc.Acordo.DadosAcordo.ParcelasAcordo.ParcelaAcordo[0].CodigoParcelaAcordo;
-      else codigoParcelaAcordo = acc.Acordo.DadosAcordo.ParcelasAcordo.ParcelaAcordo.CodigoParcelaAcordo;
-      this.numeroTitulo = acc.Acordo.DadosAcordo.NumeroTitulo.split('.')[0];
+      if (acc.data.Acordos.DadosAcordo.ParcelasAcordo.ParcelaAcordo.length) codigoParcelaAcordo = acc.data.Acordos.DadosAcordo.ParcelasAcordo.ParcelaAcordo[0].CodigoParcelaAcordo;
+      else codigoParcelaAcordo = acc.data.Acordos.DadosAcordo.ParcelasAcordo.ParcelaAcordo.CodigoParcelaAcordo;
 
       this.apiRestService.getBoletoAcordo(this.codAcordo, codigoParcelaAcordo).subscribe ((bol: Boleto) => {
        console.log(bol);
        this.loader = false;
 
-       if (bol.BoletoAcordo) {
+       if (bol.data) {
          this.boleto = bol; 
         //window.open ("/boleto?data=" + bol.BoletoAcordo.DataVencimento + "&linha=" + bol.BoletoAcordo.LinhaDigitavel + "&valor=" + bol.BoletoAcordo.Valor, "_self");
-        this.router.navigate(['/boleto'] , { queryParams: { data: bol.BoletoAcordo.DataVencimento, linha: bol.BoletoAcordo.LinhaDigitavel, valor: this.apiRestService.doisDigitosDecimais (bol.BoletoAcordo.Valor), cliente: this.apiRestService.devedor.data.Devedores[0].Devedor.Nome, contrato: this.numeroTitulo}});
-
+        this.router.navigate(['/boleto'] , { queryParams: { data: bol.data.BoletoAcordo.DataVencimento, linha: bol.data.BoletoAcordo.LinhaDigitavel, valor: this.apiRestService.doisDigitosDecimais (bol.data.BoletoAcordo.Valor), cliente: this.apiRestService.devedor.data.Devedores.Devedor[0].Nome, contrato: this.apiRestService.devedor.data.Devedores.Devedor[0].Contrato}});
       }
        else {
          this.erroBoleto = true;
@@ -129,7 +128,7 @@ export class PrazoFinalizacaoComponent implements OnInit {
   }
 
   else {
-    this.router.navigate(['/boleto'] , { queryParams: { data: this.boleto.BoletoAcordo.DataVencimento, linha: this.boleto.BoletoAcordo.LinhaDigitavel, valor: this.apiRestService.doisDigitosDecimais (this.boleto.BoletoAcordo.Valor), cliente: this.apiRestService.devedor.data.Devedores[0].Devedor.Nome, contrato: this.numeroTitulo}});
+    this.router.navigate(['/boleto'], { queryParams: { data: this.boleto.data.BoletoAcordo.DataVencimento, linha: this.boleto.data.BoletoAcordo.LinhaDigitavel, valor: this.apiRestService.doisDigitosDecimais (this.boleto.data.BoletoAcordo.Valor), cliente: this.apiRestService.devedor.data.Devedores.Devedor[0].Nome, contrato: this.apiRestService.devedor.data.Devedores.Devedor[0].Contrato}});
   }
 }
   
@@ -176,7 +175,7 @@ export class PrazoFinalizacaoComponent implements OnInit {
   }
 
   enviarSms() {
-    this.apiRestService.enviaSms( this.boleto.BoletoAcordo.LinhaDigitavel, this.boleto.BoletoAcordo.DataVencimento, this.apiRestService.doisDigitosDecimais (this.boleto.BoletoAcordo.Valor)).subscribe(res => {
+    this.apiRestService.enviaSms( this.boleto.data.BoletoAcordo.LinhaDigitavel, this.boleto.data.BoletoAcordo.DataVencimento, this.apiRestService.doisDigitosDecimais (this.boleto.data.BoletoAcordo.Valor)).subscribe(res => {
       this.smsRes = JSON.parse(res).statusDescription;
       this.porSms = false;
       this.sucesso = true;
@@ -192,19 +191,17 @@ export class PrazoFinalizacaoComponent implements OnInit {
 
     if (!this.boleto) {
     this.loader = true;
-    this.apiRestService.getDadosAcordo(this.apiRestService.codTitulo).subscribe (acc => {  // "14306351"
+    this.apiRestService.getDadosAcordo(this.apiRestService.codTitulo).subscribe (acc => {  
       console.log("acc=");
       console.log(acc);
-      if (acc.Acordo.DadosAcordo.ParcelasAcordo.ParcelaAcordo.length) codigoParcelaAcordo = acc.Acordo.DadosAcordo.ParcelasAcordo.ParcelaAcordo[0].CodigoParcelaAcordo;
-      else codigoParcelaAcordo = acc.Acordo.DadosAcordo.ParcelasAcordo.ParcelaAcordo.CodigoParcelaAcordo;
-      console.log("this.codAcordo + + + codigoParcelaAcordo");      
-      console.log("22547866 " + codigoParcelaAcordo);
-      this.apiRestService.getBoletoAcordo(this.codAcordo, codigoParcelaAcordo).subscribe ((bol: Boleto) => { // "22730208"
+      if (acc.data.Acordos.DadosAcordo.ParcelasAcordo.ParcelaAcordo.length) codigoParcelaAcordo = acc.data.Acordos.DadosAcordo.ParcelasAcordo.ParcelaAcordo[0].CodigoParcelaAcordo;
+      else codigoParcelaAcordo = acc.data.Acordos.DadosAcordo.ParcelasAcordo.ParcelaAcordo.CodigoParcelaAcordo;
+      this.apiRestService.getBoletoAcordo(this.codAcordo, codigoParcelaAcordo).subscribe ((bol: Boleto) => { 
         this.loader = false;
         console.log("bol=");  
         console.log(bol);
                
-       if (bol.BoletoAcordo) {
+       if (bol.data) {
           this.porSms = true;
           this.boleto = bol; 
        } else this.erroBoleto = true;
@@ -225,17 +222,16 @@ export class PrazoFinalizacaoComponent implements OnInit {
     if (!this.boleto) {
     this.loader = true;
     this.emailRes = '';
-    this.apiRestService.getDadosAcordo(this.apiRestService.codTitulo).subscribe (acc => { //  "14306351"
-      this.numeroTitulo = acc.Acordo.DadosAcordo.NumeroTitulo.split('.')[0];
+    this.apiRestService.getDadosAcordo(this.apiRestService.codTitulo).subscribe (acc => { 
       console.log("acc=");
       console.log(acc);
-      if (acc.Acordo.DadosAcordo.ParcelasAcordo.ParcelaAcordo.length) codigoParcelaAcordo = acc.Acordo.DadosAcordo.ParcelasAcordo.ParcelaAcordo[0].CodigoParcelaAcordo;
-      else codigoParcelaAcordo = acc.Acordo.DadosAcordo.ParcelasAcordo.ParcelaAcordo.CodigoParcelaAcordo;
-      this.apiRestService.getBoletoAcordo(this.codAcordo, codigoParcelaAcordo).subscribe ((bol: Boleto) => { // "22730208"
+      if (acc.data.Acordos.DadosAcordo.ParcelasAcordo.ParcelaAcordo.length) codigoParcelaAcordo = acc.data.Acordos.DadosAcordo.ParcelasAcordo.ParcelaAcordo[0].CodigoParcelaAcordo;
+      else codigoParcelaAcordo = acc.data.Acordos.DadosAcordo.ParcelasAcordo.ParcelaAcordo.CodigoParcelaAcordo;
+      this.apiRestService.getBoletoAcordo(this.codAcordo, codigoParcelaAcordo).subscribe ((bol: Boleto) => { 
         console.log("bol=");  
         console.log(bol);
                
-       if (bol.BoletoAcordo) {
+       if (bol.data) {
         
         this.loader = false;
         this.porEmail = true;

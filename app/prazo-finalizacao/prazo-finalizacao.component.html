@@ -42,7 +42,7 @@
     <div *ngIf="sucesso">
       <h4 class="font-weight-bold"> O Acordo foi realizado com sucesso!</h4>
       <br>
-      <p>Feito acordo em {{ vezesParcelado() + 1 }} parcelas no valor de R$ {{ primeiraParcelado() }} + {{ vezesParcelado() }} x R$ {{ outrasParcelado() }} com vencimento para o {{ primeiraParcelado()? 'primeiro':'' }} pagamento: {{ (dataPagamento.toLocaleString().indexOf(',') > -1)? dataPagamento.toLocaleString().slice(0, 10) : dataPagamento.toLocaleString().split(' ')[0] }}</p>
+      <p>Feito acordo em {{ vezesParcelado() + 1 }} parcela(s) no valor de R$ {{ primeiraParcelado() }} {{ (vezesParcelado())? ' + ' + vezesParcelado() + ' x R$ ' + outrasParcelado():'' }}  com vencimento para o {{ primeiraParcelado()? 'primeiro':'' }} pagamento: {{ (dataPagamento.toLocaleString().indexOf(',') > -1)? dataPagamento.toLocaleString().slice(0, 10) : dataPagamento.toLocaleString().split(' ')[0] }}</p>
       <h4>Como deseja receber seu boleto?</h4>
       <br>
       <div class="row">

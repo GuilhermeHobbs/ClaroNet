@@ -32,22 +32,22 @@ export class ApiRestService {
 
   public opcoesPg = { }; 
 
-  //private urlDadosDevedor = 'https://my-json-server.typicode.com/GuilhermeHobbs/devedornet/devedornet';
-  public urlDadosDevedor = 'http://186.215.156.250:8085/w-api/net/GetDadosDevedor';
+  private urlDadosDevedor = 'https://my-json-server.typicode.com/GuilhermeHobbs/devedornet/devedornet';
+  //public urlDadosDevedor = 'http://186.215.156.250:8085/w-api/net/GetDadosDevedor';
   //private urlDadosDevedor = 'apiresposta/apirequest_getdadosdevedor.php';
-  //private urlDadosDivida = 'https://my-json-server.typicode.com/GuilhermeHobbs/dividanet/dividanet';
-  private urlDadosDivida = 'http://186.215.156.250:8085/w-api/net/GetDadosDivida';
+  private urlDadosDivida = 'https://my-json-server.typicode.com/GuilhermeHobbs/dividanet/dividanet';
+  //private urlDadosDivida = 'http://186.215.156.250:8085/w-api/net/GetDadosDivida';
   //private urlDadosDivida = 'apiresposta/apirequest_getdadosdivida.php';
-  //private urlOpcoesPagamento = 'https://my-json-server.typicode.com/GuilhermeHobbs/opcoesnet/opcoesnet'; 
-  private urlOpcoesPagamento = 'http://186.215.156.250:8085/w-api/net/GetOpcoesPagamento';
+  private urlOpcoesPagamento = 'https://my-json-server.typicode.com/GuilhermeHobbs/opcoesnet/opcoesnet'; 
+  //private urlOpcoesPagamento = 'http://186.215.156.250:8085/w-api/net/GetOpcoesPagamento';
   //private urlOpcoesPagamento = 'apiresposta/apirequest_getdadosopcoespagamento.php';
   //private urlDadosAcordo = 'https://my-json-server.typicode.com/GuilhermeHobbs/dadosAcordo/acordo';  // 'http://172.22.4.33:8085/landingpage/apiresposta/apirequest_getdadosacordo.php';
   //private urlDadosAcordo = 'http://172.22.4.33:8085/landingpage/apiresposta/apirequest_getdadosacordo.php';
   private urlDadosAcordo = 'http://186.215.156.250:8085/w-api/net/GetDadosAcordo';
   //private urlDadosAcordo = 'apiresposta/apirequest_getdadosacordo.php';
-  //private urlGravaAcordo = 'https://my-json-server.typicode.com/GuilhermeHobbs/gravanet/gravanet';
+  private urlGravaAcordo = 'https://my-json-server.typicode.com/GuilhermeHobbs/gravanet/gravanet';
   //private urlGravaAcordo = 'http://172.22.4.33:8085/landingpage/apiresposta/apirequest_gravaacordo.php';
-  private urlGravaAcordo = 'http://186.215.156.250:8085/w-api/net/GravarAcordo';
+  //private urlGravaAcordo = 'http://186.215.156.250:8085/w-api/net/GravarAcordo';
   //private urlGravaAcordo = 'apiresposta/apirequest_gravaacordo.php';
   //private urlBoletoAcordo = 'https://my-json-server.typicode.com/GuilhermeHobbs/boletoAcordo/boleto'; // 'http://172.22.4.33:8085/landingpage/apiresposta/apirequest_getboletoacordo.php';
   //private urlBoletoAcordo = 'http://172.22.4.33:8085/landingpage/apiresposta/apirequest_getboletoacordo.php';
@@ -107,39 +107,39 @@ export class ApiRestService {
   
  getDadosDevedor(cpfCnpj: string): Observable<Devedor> {
   const cpfCnpjParam = new HttpParams().set('cpf', cpfCnpj);
-   return this.http.post<Devedor>(this.urlDadosDevedor, cpfCnpjParam, this.httpOptions).pipe(
+   return this.http.get<Devedor>(this.urlDadosDevedor)/*, cpfCnpjParam, this.httpOptions).pipe(
      retry(100),
      catchError(() => {
        return EMPTY;
      }),
      shareReplay()
      ) 
-   
+   */
   }  
 
  getDadosDivida(cpfCnpj: string, codDevedor: string): Observable<Divida> {
   const cpfDevedorParam = new HttpParams()
   .set('cpf', cpfCnpj)    
   .set('codigodevedor', codDevedor);
-  return this.http.post<Divida>(this.urlDadosDivida,cpfDevedorParam, this.httpOptions).pipe(
+  return this.http.get<Divida>(this.urlDadosDivida)/*,cpfDevedorParam, this.httpOptions).pipe(
     retry(100),
     catchError(() => {
       return EMPTY;
     }),
     shareReplay()
-    )  
+    )  */
  }  
 
  getOpcoesPagamento(codTitulo: string): Observable<OpcoesPagamento> {
   const cpfCnpjParam = new HttpParams().set('codigotitulo', codTitulo)
                                        .set('cpf', this.cpfCnpj);    
-  return this.http.post<OpcoesPagamento>(this.urlOpcoesPagamento, cpfCnpjParam, this.httpOptions).pipe(
+  return this.http.get<OpcoesPagamento>(this.urlOpcoesPagamento)/*, cpfCnpjParam, this.httpOptions).pipe(
     retry(100),
     catchError(() => {
       return EMPTY;
     }),
     shareReplay()
-    )  
+    )  */
  } 
 
  getDadosAcordo(codTitulo: string): Observable<any> {
@@ -171,7 +171,7 @@ export class ApiRestService {
   let nome = this.devedor.data.Devedores.Devedor[0].Nome.toLocaleUpperCase().split(' ')[0];
   const params = new HttpParams().set('cpf', this.cpfCnpj)
                                  .set('numeroenvio', this.telefone)
-                                 .set('textosms', nome + ", Segue código de barras da sua conta Net com vencimento " + vencimento + ", Valor: R$ " + valor + ", Código: " + codigobarra);
+                                 .set('textosms', nome + ", Codigo Barras de sua conta NET Vencimento " + vencimento + ", Valor R$ " + valor + ", Codigo " + codigobarra);
   return this.http.post(this.urlEnviaSms, params, this.httpOptions).pipe(
     retry(100),
     catchError(() => {
@@ -191,13 +191,13 @@ export class ApiRestService {
                                        .set('vencimentoprimeira', vencimentoPrimeira)
                                        .set('valorprimeira', valorPrimeira.replace('.',','));
 
-  return this.http.post(this.urlGravaAcordo, params, this.httpOptions).pipe(
+  return this.http.get(this.urlGravaAcordo)/*, params, this.httpOptions).pipe(
     retry(100),
     catchError(() => {
       return EMPTY;
     }),
     shareReplay()
-    ) 
+    ) */
  }
   
 
@@ -313,7 +313,7 @@ if (this.opcoesPg[this.dividasTvVirtua.data.Dividas.Divida[0].CodigoTitulo]) ret
     num = num.replace(',','.');
     console.log(num.indexOf('.'));
     if (num.indexOf('.') === num.length-2) return num + '0';
-    if (num.indexOf('.') === -1) { console.log ('num='); console.log (num); return num + '.00'; }
+    if (num.indexOf('.') === -1)  return num + '.00'; 
      return num;
   }
 
@@ -409,9 +409,11 @@ if (this.opcoesPg[this.dividasTvVirtua.data.Dividas.Divida[0].CodigoTitulo]) ret
   }
 
   export class Boleto {
-    BoletoAcordo: {
-      DataVencimento: string;
-      LinhaDigitavel: string;
-      Valor: string;
-    }
+    data: {
+      BoletoAcordo: {
+        DataVencimento: string;
+        LinhaDigitavel: string;
+        Valor: string;
+      }
+    }  
   }

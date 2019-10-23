@@ -86,7 +86,7 @@ export class AcordosAndamentoComponent implements OnInit {
   }
 
   enviarSms() {
-    this.apiRestService.enviaSms( this.boleto.BoletoAcordo.LinhaDigitavel, this.boleto.BoletoAcordo.DataVencimento, this.apiRestService.doisDigitosDecimais(this.boleto.BoletoAcordo.Valor)).subscribe(res => {
+    this.apiRestService.enviaSms( this.boleto.data.BoletoAcordo.LinhaDigitavel, this.boleto.data.BoletoAcordo.DataVencimento, this.apiRestService.doisDigitosDecimais(this.boleto.data.BoletoAcordo.Valor)).subscribe(res => {
       this.smsRes = JSON.parse(res).statusDescription;
       this.accDividas = true;
       this.porSms = false;
@@ -151,7 +151,7 @@ export class AcordosAndamentoComponent implements OnInit {
   }
 
   enviarEmail () {
-    this.apiRestService.enviaBoletoEmail(this.numTitulo, this.boleto.BoletoAcordo.Valor, this.boleto.BoletoAcordo.DataVencimento, this.boleto.BoletoAcordo.LinhaDigitavel, this.apiRestService.email).subscribe(res => {
+    this.apiRestService.enviaBoletoEmail(this.numTitulo, this.boleto.data.BoletoAcordo.Valor, this.boleto.data.BoletoAcordo.DataVencimento, this.boleto.data.BoletoAcordo.LinhaDigitavel, this.apiRestService.email).subscribe(res => {
       this.emailRes = res.message;
       this.accDividas = true;
       this.porEmail = false;
