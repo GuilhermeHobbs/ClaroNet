@@ -13,7 +13,7 @@
             <app-assistente-virtual *ngIf="showAssistenteVirtual"></app-assistente-virtual>
             <app-receba-nossa-ligacao *ngIf="showRecebaNossaLigacao"></app-receba-nossa-ligacao>
             <app-acordos-andamento *ngIf="showAcordosAndamento"></app-acordos-andamento>
-            <app-prazo-finalizacao *ngIf="apiRestService.telaFinal" (clickVoltar)="showOpcoesParcelamento(0)" (clickVoltarAVista)="hideOpcoesParcelamento()"></app-prazo-finalizacao>
+           <!-- <app-prazo-finalizacao *ngIf="apiRestService.telaFinal" (clickVoltar)="showOpcoesParcelamento(0)" (clickVoltarAVista)="hideOpcoesParcelamento()"></app-prazo-finalizacao>-->
             <!-- <app-prazo-finalizacao  *ngIf="prazoFinalizacao" (clickVoltar)="showOpcoesParcelamento(0)" (clickVoltarAVista)="hideOpcoesParcelamento()"></app-prazo-finalizacao> -->
             <div class="padding-right-10px" *ngIf="showOpcoes">
                 <h3 class="text-center bem-vindo" *ngIf="!fizPagamentoOk">Bem-vindo, <span class="text-capitalize">{{nome}}</span>!</h3>    

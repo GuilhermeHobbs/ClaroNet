@@ -204,8 +204,10 @@ export class PrazoFinalizacaoComponent implements OnInit {
        if (bol.data) {
           this.porSms = true;
           this.boleto = bol; 
-       } else this.erroBoleto = true;
-              
+       } else { 
+         this.erroBoleto = true;
+         this.sucesso = true;      
+       }       
     });
   });
   }
@@ -228,16 +230,17 @@ export class PrazoFinalizacaoComponent implements OnInit {
       if (acc.data.Acordos.DadosAcordo.ParcelasAcordo.ParcelaAcordo.length) codigoParcelaAcordo = acc.data.Acordos.DadosAcordo.ParcelasAcordo.ParcelaAcordo[0].CodigoParcelaAcordo;
       else codigoParcelaAcordo = acc.data.Acordos.DadosAcordo.ParcelasAcordo.ParcelaAcordo.CodigoParcelaAcordo;
       this.apiRestService.getBoletoAcordo(this.codAcordo, codigoParcelaAcordo).subscribe ((bol: Boleto) => { 
+        this.loader = false;
         console.log("bol=");  
         console.log(bol);
                
        if (bol.data) {
-        
-        this.loader = false;
         this.porEmail = true;
         this.boleto = bol; 
-       } else this.erroBoleto = true;
-              
+       } else { 
+        this.erroBoleto = true;
+        this.sucesso = true;      
+      }       
     });
   });
 
