@@ -87,7 +87,7 @@ export class AcordosAndamentoComponent implements OnInit {
 
   enviarSms() {
     this.apiRestService.enviaSms( this.boleto.data.BoletoAcordo.LinhaDigitavel, this.boleto.data.BoletoAcordo.DataVencimento, this.apiRestService.doisDigitosDecimais(this.boleto.data.BoletoAcordo.Valor)).subscribe(res => {
-      this.smsRes = JSON.parse(res).statusDescription;
+      this.smsRes = res.message;
       this.accDividas = true;
       this.porSms = false;
    });
@@ -113,7 +113,7 @@ export class AcordosAndamentoComponent implements OnInit {
                
        if (bol.data.BoletoAcordo) {
          this.porSms = true;
-         this.boleto = bol.data; 
+         this.boleto = bol; 
        } else this.erroBoleto = true;
               
     });
@@ -142,7 +142,7 @@ export class AcordosAndamentoComponent implements OnInit {
         this.loadingBoleto[ind] = false;
         this.accDividas = false;
         this.porEmail = true;
-        this.boleto = bol.data; 
+        this.boleto = bol; 
        } else this.erroBoleto = true;
               
     });

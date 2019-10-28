@@ -22,8 +22,6 @@ export class ExtratoDebitosComponent implements OnInit {
     console.log("this.apiRestService.dividasTvVirtua=");
     console.log(this.apiRestService.dividasTvVirtua);
 
-    this.apiRestService.showDisclaimer = false;
-
     if (this.apiRestService.dividasTvVirtua.data.Dividas.Divida.length && this.apiRestService.opcoesPg[this.apiRestService.dividasTvVirtua.data.Dividas.Divida[0].CodigoTitulo]) {
       this.apiRestService.opcoesPg[this.apiRestService.dividasTvVirtua.data.Dividas.Divida[0].CodigoTitulo].subscribe ( par => {
         this.total = par.data.OpcoesPagamento.OpcaoPagamento[0].ValorOriginal;
@@ -35,7 +33,10 @@ export class ExtratoDebitosComponent implements OnInit {
 
     else {
       this.apiRestService.opcoesPg[this.apiRestService.dividasNetfone.data.Dividas.Divida[0].CodigoTitulo].subscribe ( par => {
-        this.total = par.data.OpcoesPagamento.OpcaoPagamento[0].ValorOriginal;
+        console.log("=====NETFONE");
+        console.log(par.data);
+        if (par.data.OpcoesPagamento.OpcaoPagamento.length) this.total = par.data.OpcoesPagamento.OpcaoPagamento[0].ValorOriginal;
+        else this.total = par.data.OpcoesPagamento.OpcaoPagamento.ValorOriginal;
       })
       this.parcelas = this.apiRestService.dividasNetfone.data.Dividas.Divida.filter(obj => {
         return obj.CodigoTitulo === this.apiRestService.codTitulo

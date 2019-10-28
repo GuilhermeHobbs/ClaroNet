@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { ApiRestService, Boleto, Acordo } from '../api-rest.service';
 import { RouterModule, Router } from '@angular/router';
@@ -9,9 +9,6 @@ import { RouterModule, Router } from '@angular/router';
   styleUrls: ['./prazo-finalizacao.component.css']
 })
 export class PrazoFinalizacaoComponent implements OnInit {
-
-  @Output() clickVoltar = new EventEmitter<boolean>(); 
-  @Output() clickVoltarAVista= new EventEmitter<boolean>();
 
   minDate: Date;
   maxDate: Date;
@@ -39,9 +36,7 @@ export class PrazoFinalizacaoComponent implements OnInit {
 
    }
 
-  ngOnInit() {
-    
-  }
+  ngOnInit() {  }
 
   enviarEmail() {
     this.apiRestService.enviaBoletoEmail(this.apiRestService.devedor.data.Devedores.Devedor[0].Contrato, this.boleto.data.BoletoAcordo.Valor, this.boleto.data.BoletoAcordo.DataVencimento, this.boleto.data.BoletoAcordo.LinhaDigitavel, this.apiRestService.email).subscribe(res => {
@@ -75,11 +70,11 @@ export class PrazoFinalizacaoComponent implements OnInit {
   }  
 
   voltar() {
-    this.clickVoltar.emit(true);
+    //this.clickVoltar.emit(true);
   }
 
   voltar_data() {
-    this.clickVoltarAVista.emit(true);
+    //this.clickVoltarAVista.emit(true);
   }
 
   valorAVista() {
@@ -176,7 +171,9 @@ export class PrazoFinalizacaoComponent implements OnInit {
 
   enviarSms() {
     this.apiRestService.enviaSms( this.boleto.data.BoletoAcordo.LinhaDigitavel, this.boleto.data.BoletoAcordo.DataVencimento, this.apiRestService.doisDigitosDecimais (this.boleto.data.BoletoAcordo.Valor)).subscribe(res => {
-      this.smsRes = JSON.parse(res).statusDescription;
+      console.log("JSON=");
+      console.log(res);
+      this.smsRes = res.message;
       this.porSms = false;
       this.sucesso = true;
 

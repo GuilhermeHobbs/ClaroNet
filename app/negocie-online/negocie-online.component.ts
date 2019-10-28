@@ -16,9 +16,11 @@ export class NegocieOnlineComponent implements OnInit, OnDestroy {
      this.cd.detach();
    }
  
+  public prazoFinalizacao: boolean; 
   public loadingParcelados: boolean;
   public loader: boolean;
   public OutraCobradora: boolean;
+  public linkTelaFim: boolean; 
 
   public showHeader: boolean = true;
   public opcoesParcelamento: boolean;
@@ -49,6 +51,7 @@ export class NegocieOnlineComponent implements OnInit, OnDestroy {
  }
 
   pagarAVista(codTitulo: string, valor: string, plano: string) {
+    
     this.apiRestService.parcelas = {
       aVista: valor
   };
@@ -89,7 +92,7 @@ export class NegocieOnlineComponent implements OnInit, OnDestroy {
     this.movelLabel = true;
       
     if (this.apiRestService.dividasTvVirtua.data.Dividas.Divida.length) {
-      if (this.apiRestService.dividasTvVirtua.data.Dividas.Divida.length > 2) this.apiRestService.showDisclaimer = false;
+      //if (this.apiRestService.dividasTvVirtua.data.Dividas.Divida.length > 2) this.apiRestService.showDisclaimer = false;
       this.apiRestService.dividasTvVirtua.data.Dividas.Divida.forEach( (dados) => this.setOpcoes(dados.CodigoTitulo));
     } 
   }
@@ -103,7 +106,7 @@ export class NegocieOnlineComponent implements OnInit, OnDestroy {
     this.movelLabel = true;
     
     if (this.apiRestService.dividasNetfone.data.Dividas.Divida.length) {
-      if (this.apiRestService.dividasNetfone.data.Dividas.Divida.length > 2) this.apiRestService.showDisclaimer = false;
+      //if (this.apiRestService.dividasNetfone.data.Dividas.Divida.length > 2) this.apiRestService.showDisclaimer = false;
       this.apiRestService.dividasNetfone.data.Dividas.Divida.forEach( (dados) => this.setOpcoes(dados.CodigoTitulo));
     } 
   }
@@ -167,10 +170,18 @@ export class NegocieOnlineComponent implements OnInit, OnDestroy {
   }
 
   showExtrato() {
+    
     this.mostrarExtrato = true;
     this.opcoesParcelamento = false;
-    this.apiRestService.linkTelaFim = true;
+    this.linkTelaFim = true;
   }
+
+  escolherData() {
+    this.mostrarExtrato = false;
+    this.prazoFinalizacao = true;
+    this.linkTelaFim = false;
+  }
+
 
   showOpcoesParcelamento(ind) {
 

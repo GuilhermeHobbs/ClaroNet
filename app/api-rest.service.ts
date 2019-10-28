@@ -11,8 +11,6 @@ export class ApiRestService {
 
   public mostrarAbas = [true, true];
 
-  public showDisclaimer = true;
-  
   public acordos: any;
         
   public devedor: Devedor; 
@@ -27,14 +25,13 @@ export class ApiRestService {
 
   public dividasTvVirtua: Divida;
   public dividasNetfone: Divida;
-  public linkTelaFim: boolean;
-
 
   public opcoesPg = { }; 
 
   //private urlDadosDevedor = 'https://my-json-server.typicode.com/GuilhermeHobbs/devedornet/devedornet';
   //public urlDadosDevedor = 'http://186.215.156.250:8085/w-api/net/GetDadosDevedor';
   private urlDadosDevedor = '../w-api/net/GetDadosDevedor';
+  //private urlDadosDivida = 'http://186.215.156.250:8085/w-api/net/GetDadosDivida';
   //private urlDadosDivida = 'https://my-json-server.typicode.com/GuilhermeHobbs/dividanet/dividanet';
   private urlDadosDivida = '../w-api/net/GetDadosDivida';
   //private urlOpcoesPagamento = 'https://my-json-server.typicode.com/GuilhermeHobbs/opcoesnet/opcoesnet'; 
@@ -54,9 +51,10 @@ export class ApiRestService {
   private urlBoletoAcordo = '../w-api/net/GetBoletoAcordo';
   //private urlEnviaSms = 'http://172.22.4.33:8085/landingpage/apiresposta/apirequest_smsenvio.php';
   //private urlEnviaSms = 'https://my-json-server.typicode.com/GuilhermeHobbs/smsEnvio/sms';
-  private urlEnviaSms = 'http://186.215.156.250:8085/landingpage/apiresposta/apirequest_smsenvio.php';
-  //private   urlEnviaSms = 'apiresposta/apirequest_smsenvio.php';
-  private urlBoletoEmail = 'http://186.215.156.250:8085/landingpage/apiresposta/boleto/sendBill.php';
+  //private urlEnviaSms = 'http://186.215.156.250:8085/w-api/net/enviarSMS';
+  private urlEnviaSms = '../w-api/net/enviarSMS';
+  private urlBoletoEmail = '../w-api/net/enviarBoletoPorEmail';
+  //private urlBoletoEmail = 'http://186.215.156.250:8085/w-api/net/enviarBoletoPorEmail';
 
   private httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' })
@@ -238,17 +236,30 @@ export class ApiRestService {
     }  
   };
 
+  console.log("====getDividas()");
+  console.log(this.dividas);
+
   if (this.dividas.data.Dividas.Divida.length) {
+    console.log("===TV/VIRTUA===ONE");
+    console.log(this.dividas.data.Dividas.Divida);
+
     this.dividasTvVirtua.data.Dividas.Divida = this.dividas.data.Dividas.Divida.filter( div => div.Produto === "TV/VIRTUA" );  
     this.dividasNetfone.data.Dividas.Divida = this.dividas.data.Dividas.Divida.filter( div => div.Produto === "NETFONE" );
   
+    console.log("===this.dividasTvVirtua");
+    console.log(this.dividasTvVirtua);
+
+
   }
   
   else { 
     
     switch (this.dividas.data.Dividas.Divida.Produto) {
       case "TV/VIRTUA": {
+        console.log("===TV/VIRTUA===")
         this.dividasTvVirtua.data.Dividas.Divida.push(this.dividas.data.Dividas.Divida);
+        console.log(this.dividas);
+        console.log(this.dividas.data.Dividas.Divida);
         break;
       } 
       case "NETFONE": {
@@ -263,7 +274,10 @@ export class ApiRestService {
 
  getAllOpcoesTvVirtua() {
 
-if (this.opcoesPg[this.dividasTvVirtua.data.Dividas.Divida[0].CodigoTitulo]) return true;  
+if (this.opcoesPg[this.dividasTvVirtua.data.Dividas.Divida[0].CodigoTitulo]) return true; 
+console.log("====this.dividasTvVirtua")
+console.log(this.dividasTvVirtua);
+
  this.dividasTvVirtua.data.Dividas.Divida.forEach ( (divida) => {
  
   this.opcoesPg[divida.CodigoTitulo] = new BehaviorSubject<OpcoesPagamento>({

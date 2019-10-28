@@ -5,12 +5,15 @@
 
 <h1 *ngIf="OutraCobradora">Dívida não localizada neste site.</h1>
 
+<app-prazo-finalizacao *ngIf="prazoFinalizacao"></app-prazo-finalizacao>
+
+<a class="btn btn-primary back-red btn-negociar" (click)="escolherData()" *ngIf="linkTelaFim">Negociar débito</a>        
 <app-extrato-debitos *ngIf="mostrarExtrato"></app-extrato-debitos>
 
-<accordion [isAnimated]="true" [closeOthers]="true" *ngIf="!mostrarExtrato && !OutraCobradora">
+<accordion [isAnimated]="true" [closeOthers]="true" *ngIf="!mostrarExtrato && !OutraCobradora && !prazoFinalizacao">
   
   <accordion-group *ngIf="apiRestService.dividasTvVirtua.data.Dividas.Divida.length && apiRestService.mostrarAbas[0]">
-    <button class="btn btn-link btn-block clearfix btn-accordion" accordion-heading (click)="botaoNaoClicavel() && getAllOpcoesTvVirtua()" [class.mobile-hidden]="!showHeader">
+    <button class="btn btn-link btn-block clearfix btn-accordion" accordion-heading (click)="botaoNaoClicavel(); getAllOpcoesTvVirtua()" [class.mobile-hidden]="!showHeader">
       <img src="assets/icons/tv.jpg" class="produto-img" alt="...">
       <div class="pull-left float-left produto-heading"><span>TV / Virtua</span> 
         <span class="movelLabel" *ngIf="movelLabel">Débitos para serem negociados</span>
@@ -77,7 +80,7 @@
   </accordion-group>
 
   <accordion-group *ngIf="apiRestService.dividasNetfone.data.Dividas.Divida.length && apiRestService.mostrarAbas[1]">
-    <button class="btn btn-link btn-block clearfix btn-accordion" accordion-heading (click)="botaoNaoClicavel() && getAllOpcoesNetfone()" [class.mobile-hidden]="!showHeader">
+    <button class="btn btn-link btn-block clearfix btn-accordion" accordion-heading (click)="botaoNaoClicavel(); getAllOpcoesNetfone()" [class.mobile-hidden]="!showHeader">
       <img src="assets/icons/phone.jpg" class="produto-img" alt="...">
       <div class="pull-left float-left produto-heading"><span>NETFONE</span> 
         <span class="movelLabel" *ngIf="movelLabel">Débitos para serem negociados</span>

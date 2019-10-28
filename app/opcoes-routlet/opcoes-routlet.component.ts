@@ -8,9 +8,13 @@ import { ApiRestService, Divida, Acordo } from '../api-rest.service';
 })
 export class OpcoesRoutletComponent {
 
+  public voltarNegociarOnline: boolean;
+  
   constructor(public apiRestService: ApiRestService) { }
 
+  public showDisclaimer = true;  
   public nome: string = this.apiRestService.getNome();
+  
   showOpcoes: boolean = true;
   showNegocieOnline: boolean;
   showAssistenteVirtual: boolean;
@@ -26,6 +30,7 @@ export class OpcoesRoutletComponent {
     this.showOpcoes = false;
     this.showNegocieOnline = true;
     this.logo_menor = true;
+    this.showDisclaimer = false;
   } 
 
   assistenteVirtual() {
@@ -51,6 +56,7 @@ export class OpcoesRoutletComponent {
     this.showOpcoes = false;
     this.showAcordosAndamento = true;
     this.logo_menor = true;
+    this.showDisclaimer = false;
   }
 
 
@@ -61,16 +67,13 @@ export class OpcoesRoutletComponent {
       this.showRecebaNossaLigacao = false;
       this.showAcordosAndamento = false;  
       this.logo_menor = false;
-      this.apiRestService.linkTelaFim = false;
     }
 
   voltarInicio() {
     window.open ("/");
   }
 
-  escolherData() {
-    this.apiRestService.linkTelaFim = false;
-    this.apiRestService.telaFinal = true;
-    this.showNegocieOnline = false;
+  voltarNegociar() {
+   // this.apiRestService.linkTelaFim = false;
   }
 }

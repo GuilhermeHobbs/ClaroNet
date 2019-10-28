@@ -88,6 +88,15 @@ h3 {
   margin-top: 30px;
 }
 
+.bottom-fixed {
+  position: fixed;
+  bottom: 0px;
+  margin-bottom: 0px;
+  font-size: 18px;
+  padding-right: 17px;
+  padding-left: 17px;
+  }
+
 @media (max-width: 1000px) {
 
   .up-15px-mobile {
@@ -101,7 +110,16 @@ h3 {
 }
 
 @media (max-width: 768px) {
- 
+
+  .back-beje-mobile {
+    background: #f8f8f8;
+  }
+
+  .bottom-fixed {
+    font-size: 14px;
+    bottom: 26px;        
+  }
+
   .mobile-hidden {
     display: none;
   }

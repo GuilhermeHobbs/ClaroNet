@@ -20,6 +20,14 @@ margin-left: 10px;
     font-size: 19px;  
 }
 
+.btn-negociar {
+    position: relative;
+    top: -20px;
+    width: 200px;
+    display: block;
+    margin: 0 auto;
+}
+
 table {
     margin-bottom: 20px;
 }
@@ -128,6 +136,9 @@ table {
         left: -20px;*/
     }
 
+    .btn-negociar {
+        top: -5px;
+    }
        
 }
 

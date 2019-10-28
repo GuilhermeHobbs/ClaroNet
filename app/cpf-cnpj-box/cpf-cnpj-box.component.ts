@@ -53,11 +53,9 @@ export class CpfCnpjBoxComponent implements OnInit {
     this.cnpj_sem_debitos = false;
     this.input_inv = false;
     this.erro = false;
+
   }
 
-  clearDisclaimer() {
-    this.disclaimer = false;
-  }
 
   backspacePress(event: any) {
   

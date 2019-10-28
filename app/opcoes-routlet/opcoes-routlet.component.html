@@ -6,7 +6,7 @@
                             
             <p class="link-voltar btn-link font-weight-bold red mobile-left" (click)="voltarMenu()" [hidden]="showOpcoes || apiRestService.telaFinal">Voltar ao Menu Principal</p>        
             <p class="link-voltar btn-link font-weight-bold red" (click)="voltarInicio()" *ngIf="apiRestService.telaFinal">Fazer nova consulta de CPF ou CNPJ</p>        
-            <a class="btn btn-primary back-red btn-negociar" (click)="escolherData()" *ngIf="apiRestService.linkTelaFim">Negociar débito</a>        
+            
             <img src="assets/img/logo.png" alt="Claro" class="logo" [hidden]="logo_menor">
             
             <app-negocie-online *ngIf="showNegocieOnline"></app-negocie-online>
@@ -79,7 +79,7 @@
             </a>
         </div>
      </div>    
-        <a class="bottom-fixed back-beje-mobile" target="_blank" href="http://www.fulltimesolucoes.com.br/" *ngIf="apiRestService.showDisclaimer" [class.mobile-hidden]="showOpcoes || showAcordosAndamento">A Fulltime é uma empresa autorizada pela Claro para a cobrança de débito.</a>
+        <a class="bottom-fixed back-beje-mobile" target="_blank" href="http://www.fulltimesolucoes.com.br/" *ngIf="showDisclaimer">A Fulltime é uma empresa autorizada pela Claro para a cobrança de débito.</a>
                 
     </div>    
 

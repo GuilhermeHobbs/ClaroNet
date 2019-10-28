@@ -73,10 +73,8 @@ h1 {
 }
 
 .auto_inicio {
-    text-align: right;
+    float: right;
     color: white;
-    bottom: 5px;
-    right: 10px;
   }
   
 @media (max-width: 768px) {
