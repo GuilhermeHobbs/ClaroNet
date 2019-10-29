@@ -110,11 +110,11 @@
             </button>      
           </div>
       </div>
-      <button type="button" class="btn btn-primary btn-voltar back-red" (click)="voltar_data()">
+      <button type="button" class="btn btn-primary btn-voltar back-red" (click)="voltar()">
         Voltar
       </button>  
     </div>  
   </accordion-group>
 </accordion>
 
-<a class="bottom-fixed back-beje-mobile" target="_blank" href="http://www.fulltimesolucoes.com.br/">A Fulltime é uma empresa autorizada pela Claro para a cobrança de débito.</a>
+<a class="bottom-fixed back-beje-mobile" target="_blank" href="http://www.fulltimesolucoes.com.br/" [class.hide-mobile]="porEmail || porSms || escolhaData || sucesso">A Fulltime é uma empresa autorizada pela Claro para a cobrança de débito.</a>

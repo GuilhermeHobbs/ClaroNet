@@ -170,6 +170,7 @@ export class NegocieOnlineComponent implements OnInit, OnDestroy {
   }
 
   showExtrato() {
+    this.prazoFinalizacao = false;
     
     this.mostrarExtrato = true;
     this.opcoesParcelamento = false;

@@ -99,4 +99,8 @@ h1 {
         font-size: 18px;
         text-align: center;
     }    
+
+    .auto_inicio {
+       margin: 5px 0 25px 5px; 
+    }    
 }    

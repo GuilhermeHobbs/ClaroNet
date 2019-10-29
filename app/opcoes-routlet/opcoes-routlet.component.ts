@@ -70,7 +70,7 @@ export class OpcoesRoutletComponent {
     }
 
   voltarInicio() {
-    window.open ("/");
+    window.open ("/landingpagenet");
   }
 
   voltarNegociar() {

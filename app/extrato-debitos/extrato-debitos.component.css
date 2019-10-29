@@ -3,10 +3,20 @@
     border-bottom: 1px solid;
 }
 
+.tabela {
+    font-size: 16px;
+
+}
+
 @media (max-width: 768px) {
 
     .parcela-row-mobile {
         border-bottom: 1px solid;
+    }
+
+    .tabela {
+        padding: 0 13px 0 5px;
+        font-size: 14px;
     }
 
 }    

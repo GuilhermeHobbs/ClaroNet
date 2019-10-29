@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { ApiRestService, Boleto, Acordo } from '../api-rest.service';
 import { RouterModule, Router } from '@angular/router';
@@ -9,6 +9,8 @@ import { RouterModule, Router } from '@angular/router';
   styleUrls: ['./prazo-finalizacao.component.css']
 })
 export class PrazoFinalizacaoComponent implements OnInit {
+
+  @Output() clickVoltar = new EventEmitter<boolean>(); 
 
   minDate: Date;
   maxDate: Date;
@@ -57,6 +59,11 @@ export class PrazoFinalizacaoComponent implements OnInit {
     this.smsRes = '';
   }
 
+  voltar() {
+    this.clickVoltar.emit(true);
+  }
+
+
   showFinalizacao() {
    if (this.dataPagamento) { 
     this.fim = true;
@@ -69,14 +76,7 @@ export class PrazoFinalizacaoComponent implements OnInit {
     this.escolhaData = true;
   }  
 
-  voltar() {
-    //this.clickVoltar.emit(true);
-  }
-
-  voltar_data() {
-    //this.clickVoltarAVista.emit(true);
-  }
-
+  
   valorAVista() {
     if (this.apiRestService.parcelas.aVista) return this.apiRestService.doisDigitosDecimais (this.apiRestService.parcelas.aVista);
   }

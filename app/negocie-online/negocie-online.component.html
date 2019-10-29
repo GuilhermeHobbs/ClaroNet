@@ -5,7 +5,7 @@
 
 <h1 *ngIf="OutraCobradora">Dívida não localizada neste site.</h1>
 
-<app-prazo-finalizacao *ngIf="prazoFinalizacao"></app-prazo-finalizacao>
+<app-prazo-finalizacao *ngIf="prazoFinalizacao" (clickVoltar)="showExtrato()"></app-prazo-finalizacao>
 
 <a class="btn btn-primary back-red btn-negociar" (click)="escolherData()" *ngIf="linkTelaFim">Negociar débito</a>        
 <app-extrato-debitos *ngIf="mostrarExtrato"></app-extrato-debitos>
