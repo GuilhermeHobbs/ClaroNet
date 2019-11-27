@@ -21,6 +21,7 @@ export class AcordosAndamentoComponent implements OnInit {
   public numTitulo: string;
   public emailRes: string;
   public smsRes = '';
+  public loader: boolean;
   
   constructor(public apiRestService: ApiRestService, private router: Router) {
    }
@@ -86,7 +87,9 @@ export class AcordosAndamentoComponent implements OnInit {
   }
 
   enviarSms() {
+    this.loader = true;
     this.apiRestService.enviaSms( this.boleto.data.BoletoAcordo.LinhaDigitavel, this.boleto.data.BoletoAcordo.DataVencimento, this.apiRestService.doisDigitosDecimais(this.boleto.data.BoletoAcordo.Valor)).subscribe(res => {
+      this.loader = false;
       this.smsRes = res.message;
       this.accDividas = true;
       this.porSms = false;
@@ -151,7 +154,9 @@ export class AcordosAndamentoComponent implements OnInit {
   }
 
   enviarEmail () {
+    this.loader = true;
     this.apiRestService.enviaBoletoEmail(this.numTitulo, this.boleto.data.BoletoAcordo.Valor, this.boleto.data.BoletoAcordo.DataVencimento, this.boleto.data.BoletoAcordo.LinhaDigitavel, this.apiRestService.email).subscribe(res => {
+      this.loader = false;
       this.emailRes = res.message;
       this.accDividas = true;
       this.porEmail = false;

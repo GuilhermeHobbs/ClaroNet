@@ -14,7 +14,8 @@ export class PrazoFinalizacaoComponent implements OnInit {
 
   minDate: Date;
   maxDate: Date;
- 
+
+  public OutraCobradora: boolean;
   public dataPagamento: string;
   public escolhaData = true;
   public fim: boolean;
@@ -41,7 +42,9 @@ export class PrazoFinalizacaoComponent implements OnInit {
   ngOnInit() {  }
 
   enviarEmail() {
+    this.loader = true;
     this.apiRestService.enviaBoletoEmail(this.apiRestService.devedor.data.Devedores.Devedor[0].Contrato, this.boleto.data.BoletoAcordo.Valor, this.boleto.data.BoletoAcordo.DataVencimento, this.boleto.data.BoletoAcordo.LinhaDigitavel, this.apiRestService.email).subscribe(res => {
+      this.loader = false;
       this.emailRes = res.message;
       this.porEmail = false;
       this.sucesso = true;
@@ -143,6 +146,9 @@ export class PrazoFinalizacaoComponent implements OnInit {
             this.codAcordo = res.data.CodigoAcordo;
             this.apiRestService.telaFinal = true;
            }
+           else if (res.data.Codigo === '24') {
+            this.OutraCobradora = true;
+           }  
            else {
              this.erro = true;
              this.fim = true;
@@ -160,6 +166,9 @@ export class PrazoFinalizacaoComponent implements OnInit {
             this.codAcordo = res.data.CodigoAcordo;
             this.apiRestService.telaFinal = true;
            }
+           else if (res.data.Codigo === '24') {
+            this.OutraCobradora = true;
+           }
            else {
              this.erro = true;
              this.fim = true;
@@ -170,7 +179,9 @@ export class PrazoFinalizacaoComponent implements OnInit {
   }
 
   enviarSms() {
+    this.loader = true;
     this.apiRestService.enviaSms( this.boleto.data.BoletoAcordo.LinhaDigitavel, this.boleto.data.BoletoAcordo.DataVencimento, this.apiRestService.doisDigitosDecimais (this.boleto.data.BoletoAcordo.Valor)).subscribe(res => {
+      this.loader = false;
       console.log("JSON=");
       console.log(res);
       this.smsRes = res.message;

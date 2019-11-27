@@ -59,6 +59,11 @@ h3 {
   top: -30px;
 }
 
+.up-15px {
+  position: relative;
+  top: -15px;
+}
+
 .pl-15px {
   padding-left: 15px;
 }
@@ -96,6 +101,20 @@ h3 {
   padding-right: 17px;
   padding-left: 17px;
   }
+
+  .btn-acessar {
+    background: #e32620;
+    padding: 8px 16px;
+    font-size: 16px;
+    border-radius: 50px;
+    line-height: 1;
+    
+    color: white;
+    margin: 20px auto;
+    width: 100px;
+    transition: color .15s cubic-bezier(.455,.03,.515,.955),background .15s cubic-bezier(.455,.03,.515,.955);
+}
+
 
 @media (max-width: 1000px) {
 

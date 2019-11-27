@@ -16,6 +16,12 @@
   <app-input-tel (clickEnviar)="enviarSms()" (clickVoltar)="voltarSms()"></app-input-tel>
 </div>
 
+  <div *ngIf="loader">
+    <p>Aguarde . . .</p>
+    <div class="loader-wrap">  
+      <div class="loader"></div>
+    </div>
+  </div>
 
 <accordion [isAnimated]="true" [closeOthers]="true" *ngIf="accDividas">
    

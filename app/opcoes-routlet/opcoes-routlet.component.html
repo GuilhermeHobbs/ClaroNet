@@ -13,10 +13,11 @@
             <app-assistente-virtual *ngIf="showAssistenteVirtual"></app-assistente-virtual>
             <app-receba-nossa-ligacao *ngIf="showRecebaNossaLigacao"></app-receba-nossa-ligacao>
             <app-acordos-andamento *ngIf="showAcordosAndamento"></app-acordos-andamento>
+            <app-fiz-pagamento *ngIf="showFizPagamento"></app-fiz-pagamento>
            <!-- <app-prazo-finalizacao *ngIf="apiRestService.telaFinal" (clickVoltar)="showOpcoesParcelamento(0)" (clickVoltarAVista)="hideOpcoesParcelamento()"></app-prazo-finalizacao>-->
             <!-- <app-prazo-finalizacao  *ngIf="prazoFinalizacao" (clickVoltar)="showOpcoesParcelamento(0)" (clickVoltarAVista)="hideOpcoesParcelamento()"></app-prazo-finalizacao> -->
             <div class="padding-right-10px" *ngIf="showOpcoes">
-                <h3 class="text-center bem-vindo" *ngIf="!fizPagamentoOk">Bem-vindo, <span class="text-capitalize">{{nome}}</span>!</h3>    
+                <h3 class="text-center bem-vindo">Bem-vindo, <span class="text-capitalize">{{nome}}</span>!</h3>    
                 
                 <div class="row">                    
                     <a class="card col-lg-2" (click)="negocieOnline()" *ngIf="this.apiRestService.dividas.data.Dividas">
@@ -49,20 +50,12 @@
                     <p class="btn btn-acessar">Acessar</p>
             </a>
     
-            <div class="col-lg-3 fiz-pagamento-ok" *ngIf="fizPagamentoOk">
-                  <div class="container">
-                        <span class="red">Obrigada!</span><br>
-                        As informações de pagamento foram enviadas para a nossa central.<br>
-                        Caso necessário entraremos em contato no nosso número:<br> 
-                        0800 208 8080         
-                </div>            
-        </div>
-
-            <div class="card col-lg-2" *ngIf="cardBodyPagamento" (click)="fizPagamento()" [hidden]="true">
+     
+            <div class="card col-lg-2" (click)="fizPagamento()">
                     <img src="assets/icons/fiz-pagamento.png" class="card-img-top" alt="...">
                     <div class="card-body">
                     <h5 class="card-title">JÁ FIZ O PAGAMENTO</h5>
-                    <p class="card-text">Já realizou o pagamento de seus débitos com a claro? Pressione o botão abaixo!</p>
+                    <p class="card-text">Já realizou o pagamento de seus débitos com a Net? Pressione o botão abaixo!</p>
                         
                     </div>
                     <p class="btn btn-acessar">Informar</p>

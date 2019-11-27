@@ -28,6 +28,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { InputTelComponent } from './input-tel/input-tel.component';
 import { InputEmailComponent } from './input-email/input-email.component';
 import { ExtratoDebitosComponent } from './extrato-debitos/extrato-debitos.component';
+import { FizPagamentoComponent } from './fiz-pagamento/fiz-pagamento.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { ExtratoDebitosComponent } from './extrato-debitos/extrato-debitos.compo
     BoletoComponent,
     InputTelComponent,
     InputEmailComponent,
-    ExtratoDebitosComponent        
+    ExtratoDebitosComponent,
+    FizPagamentoComponent        
   ],
   imports: [
     BrowserModule,

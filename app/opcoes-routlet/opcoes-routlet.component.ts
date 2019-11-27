@@ -22,6 +22,7 @@ export class OpcoesRoutletComponent {
   showAcordosAndamento: boolean;
   cardBodyPagamento: boolean = true;
   fizPagamentoOk: boolean;
+  showFizPagamento: boolean;
 
   logo_menor: boolean;
 
@@ -44,12 +45,10 @@ export class OpcoesRoutletComponent {
   } 
 
   fizPagamento() {    
-    this.apiRestService.fizPagamento().subscribe(res => {
-      if (res) {
-        this.cardBodyPagamento = false;
-        this.fizPagamentoOk = true;
-      }  
-    });
+    this.showOpcoes = false;
+    this.showFizPagamento = true;
+    this.logo_menor = true;
+    //this.apiRestService.showDisclaimer = false;
   }
 
   acordosAndamento() {
@@ -70,7 +69,7 @@ export class OpcoesRoutletComponent {
     }
 
   voltarInicio() {
-    window.open ("/landingpagenet");
+    window.open ("/");
   }
 
   voltarNegociar() {

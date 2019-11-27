@@ -29,28 +29,28 @@ export class ApiRestService {
   public opcoesPg = { }; 
 
   //private urlDadosDevedor = 'https://my-json-server.typicode.com/GuilhermeHobbs/devedornet/devedornet';
-  //public urlDadosDevedor = 'http://186.215.156.250:8085/w-api/net/GetDadosDevedor';
-  private urlDadosDevedor = '../w-api/net/GetDadosDevedor';
-  //private urlDadosDivida = 'http://186.215.156.250:8085/w-api/net/GetDadosDivida';
+  public urlDadosDevedor = 'http://186.215.156.250:8085/w-api/net/GetDadosDevedor';
+  //private urlDadosDevedor = '../w-api/net/GetDadosDevedor';
+  private urlDadosDivida = 'http://186.215.156.250:8085/w-api/net/GetDadosDivida';
   //private urlDadosDivida = 'https://my-json-server.typicode.com/GuilhermeHobbs/dividanet/dividanet';
-  private urlDadosDivida = '../w-api/net/GetDadosDivida';
+  //private urlDadosDivida = '../w-api/net/GetDadosDivida';
   //private urlOpcoesPagamento = 'https://my-json-server.typicode.com/GuilhermeHobbs/opcoesnet/opcoesnet'; 
-  //private urlOpcoesPagamento = 'http://186.215.156.250:8085/w-api/net/GetOpcoesPagamento';
-  private urlOpcoesPagamento = '../w-api/net/GetOpcoesPagamento';
+  private urlOpcoesPagamento = 'http://186.215.156.250:8085/w-api/net/GetOpcoesPagamento';
+  //private urlOpcoesPagamento = '../w-api/net/GetOpcoesPagamento';
   //private urlDadosAcordo = 'https://my-json-server.typicode.com/GuilhermeHobbs/dadosacordonet/dadosacordonet';  // 'http://172.22.4.33:8085/landingpage/apiresposta/apirequest_getdadosacordo.php';
-  //private urlDadosAcordo = 'http://186.215.156.250:8085/w-api/net/GetDadosAcordo';
-  private urlDadosAcordo = '../w-api/net/GetDadosAcordo';
+  private urlDadosAcordo = 'http://186.215.156.250:8085/w-api/net/GetDadosAcordo';
+  //private urlDadosAcordo = '../w-api/net/GetDadosAcordo';
   //private urlGravaAcordo = 'https://my-json-server.typicode.com/GuilhermeHobbs/gravanet/gravanet';
-  //private urlGravaAcordo = 'http://186.215.156.250:8085/w-api/net/GravarAcordo';
-  private urlGravaAcordo = '../w-api/net/GravarAcordo';
+  private urlGravaAcordo = 'http://186.215.156.250:8085/w-api/net/GravarAcordo';
+  //private urlGravaAcordo = '../w-api/net/GravarAcordo';
   //private urlBoletoAcordo = 'https://my-json-server.typicode.com/GuilhermeHobbs/boletoAcordo/boleto'; // 'http://172.22.4.33:8085/landingpage/apiresposta/apirequest_getboletoacordo.php';
-  //private urlBoletoAcordo = 'http://186.215.156.250:8085/w-api/net/GetBoletoAcordo';
-  private urlBoletoAcordo = '../w-api/net/GetBoletoAcordo';
+  private urlBoletoAcordo = 'http://186.215.156.250:8085/w-api/net/GetBoletoAcordo';
+  //private urlBoletoAcordo = '../w-api/net/GetBoletoAcordo';
   //private urlEnviaSms = 'https://my-json-server.typicode.com/GuilhermeHobbs/smsEnvio/sms';
-  //private urlEnviaSms = 'http://186.215.156.250:8085/w-api/net/enviarSMS';
-  private urlEnviaSms = '../w-api/net/enviarSMS';
-  private urlBoletoEmail = '../w-api/net/enviarBoletoPorEmail';
-  //private urlBoletoEmail = 'http://186.215.156.250:8085/w-api/net/enviarBoletoPorEmail';
+  private urlEnviaSms = 'http://186.215.156.250:8085/w-api/net/enviarSMS';
+  //private urlEnviaSms = '../w-api/net/enviarSMS';
+  //private urlBoletoEmail = 'w-api/net/enviarBoletoPorEmail';
+  private urlBoletoEmail = 'http://186.215.156.250:8085/w-api/net/enviarBoletoPorEmail';
 
   private httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' })
@@ -93,10 +93,6 @@ export class ApiRestService {
     return of(true);
   } 
 
-  fizPagamento(): Observable<boolean> {
-    return of(true);
-  } 
-    
   
  getDadosDevedor(cpfCnpj: string): Observable<Devedor> {
   const cpfCnpjParam = new HttpParams().set('cpf', cpfCnpj);
@@ -325,6 +321,8 @@ console.log(this.dividasTvVirtua);
     if (num.indexOf('.') === -1)  return num + '.00'; 
      return num;
   }
+
+  
 
 }
 

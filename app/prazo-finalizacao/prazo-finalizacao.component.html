@@ -1,4 +1,6 @@
-<accordion [isAnimated]="true">
+<h1 *ngIf="OutraCobradora">Dívida não localizada neste site.</h1>
+
+<accordion [isAnimated]="true" *ngIf="!OutraCobradora">
   
   <accordion-group [isOpen]="true">
     <button class="btn btn-link btn-block clearfix btn-accordion" accordion-heading *ngIf="apiRestService.mostrarAbas[0]">

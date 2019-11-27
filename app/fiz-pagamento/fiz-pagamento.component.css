@@ -1,0 +1,149 @@
+.produto-heading {
+    line-height: 44px;
+    font-size: 22px;
+    margin-left: 10px;    
+    }
+    
+    .logo {
+        width: 120px;
+        display: block;
+        margin: 10px auto;
+    }
+    
+    .produto-img {
+        height: 45px;
+        float: left;
+    }
+    
+    .btn {
+        width: 100%;
+        font-size: 19px;  
+    }
+    
+    .btn-negociar {
+        position: relative;
+        top: -20px;
+        width: 200px;
+        display: block;
+        margin: 0 auto;
+    }
+    
+    table {
+        margin-bottom: 20px;
+    }
+    
+    .opcoes-parcelamento {  
+        width: 90%;
+        margin: 0 auto;
+    }    
+        
+    
+    
+    .opcoes-parcelamento .btn {
+        margin-bottom: 25px;
+        width: 250px;    
+    }
+    
+    .metodo-pagamento {
+        margin-top: 25px;
+        border: 1px solid rgba(0,0,0,.125);
+        padding-bottom: 10px;
+        /*margin-left: 7px;*/
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+    
+    .movelLabel {
+        display: inline-block;
+        margin-left: 100px;
+        color: black;
+        font-weight: bold;
+    }
+    
+    .panel-collapse > div {
+        padding-top: 0 !important
+    }
+    
+    .opcoes-para-parcelamento {
+        text-align: right;
+    }
+    
+    .metodo-de-pagamento {
+        text-align: center;
+        margin-bottom: 5px;
+    }
+    
+    .btn-smaller {
+        width: 205px !important;
+    }
+    
+    @media (max-width: 768px) {
+    
+        h3 {
+            margin-right: 10px;
+            margin-left: 10px;
+        }
+        
+        .opcoes-para-parcelamento {
+            text-align: left;
+        }    
+    
+        .btn {
+            margin-top: 10px;
+            font-size: 17px;    
+        }
+    
+        .metodo-pagamento {
+            margin-top: 0px;
+            margin-bottom: 7px;
+            margin-left: 0;
+        }
+        
+        .metodo-de-pagamento {
+            margin-bottom: 0;
+            margin-top: 5px;
+            text-align: left;
+            font-size: 17px;
+        }
+    
+        .btn-accordion {
+            margin: 0;
+            padding: 0;
+        }
+          
+        table {
+            margin-top: -16px;
+            margin-bottom: -10px;
+        }
+    
+        .movelLabel {
+            display: none;
+        }
+    
+        .opcoes-parcelamento {
+            width: 100%;
+            margin: auto;
+            position: relative;
+            top: -20px;
+        }
+    
+        .opcoes-parcelamento .btn {
+            /*width: 155px;*/
+            display: block;
+            margin: 20px auto 0;
+            padding: 1px;
+            /*position: relative;
+            left: -20px;*/
+        }
+    
+        .btn-negociar {
+            top: -5px;
+        }
+           
+    }
+    
+    .loader-wrap-wrap {
+        height: 4500px;
+    }
+    
+    
