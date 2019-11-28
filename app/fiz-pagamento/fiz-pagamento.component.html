@@ -2,7 +2,7 @@
 
 <accordion [isAnimated]="true" [closeOthers]="true">
   
-  <accordion-group *ngIf="apiRestService.dividasTvVirtua.data.Dividas.Divida.length && apiRestService.mostrarAbas[0]">
+  <accordion-group *ngIf="mostraAbaTvVirtua()">
     <button class="btn btn-link btn-block clearfix btn-accordion" accordion-heading (click)="getAllOpcoesTvVirtua()" [class.mobile-hidden]="!showHeader">
       <img src="assets/icons/tv.jpg" class="produto-img" alt="...">
       <div class="pull-left float-left produto-heading"><span>TV / Virtua</span> 
@@ -15,7 +15,7 @@
         </div>  
       </div>
       
-    <div [hidden]="loader" class="row up-15px">
+    <div *ngIf="!loader && apiRestService.dividasTvVirtua" class="row up-15px">
        
      <div class="col-xl-4" *ngFor="let div of apiRestService.dividasTvVirtua.data.Dividas.Divida; let ind = index"> 
       <div class="metodo-pagamento">
@@ -32,20 +32,31 @@
         </div>
         <p class="btn btn-acessar">Paguei este débito</p>
       </div>
-    </div>
-    <div *ngFor="let acordo of acordos">
+    </div>    
+  </div>
+  <div *ngFor="let acordo of acordosTvVirtua">
     <div *ngIf="acordo.ParcelasAcordo.ParcelaAcordo.length">
         <div *ngFor="let par of acordo.ParcelasAcordo.ParcelaAcordo; let ind = index" class="metodo-pagamento">
-            <div class="metodo-de-pagamento">
+          <div class="metodo-pagamento">   
+          <div class="metodo-de-pagamento">
               {{ par.DataVencimento }} - {{ par.StatusParcelaAcordo }}
+          </div>   
+          <p class="btn btn-acessar">Paguei este débito</p>
         </div>        
       </div>
      </div>
-    </div>
+     <div *ngIf="acordo.ParcelasAcordo.ParcelaAcordo.CodigoParcelaAcordo">
+        <div class="metodo-pagamento">    
+          <div class="metodo-de-pagamento">
+            {{ acordo.ParcelasAcordo.ParcelaAcordo.DataVencimento }} - {{ acordo.ParcelasAcordo.ParcelaAcordo.StatusParcelaAcordo }}
+          </div>
+          <p class="btn btn-acessar">Paguei este débito</p>
+        </div>
+     </div>
   </div>
   </accordion-group>
 
-  <accordion-group *ngIf="apiRestService.dividasNetfone.data.Dividas.Divida.length && apiRestService.mostrarAbas[1]">
+  <accordion-group *ngIf="mostraAbaNetfone()">
     <button class="btn btn-link btn-block clearfix btn-accordion" accordion-heading (click)="getAllOpcoesNetfone()" [class.mobile-hidden]="!showHeader">
       <img src="assets/icons/phone.jpg" class="produto-img" alt="...">
       <div class="pull-left float-left produto-heading"><span>NETFONE</span> 
@@ -59,7 +70,7 @@
         </div>  
       </div>
       
-    <div [hidden]="loader" class="row up-15px"> 
+    <div *ngIf="!loader && apiRestService.dividasNetfone" class="row up-15px"> 
      <div class="col-xl-4" *ngFor="let div of apiRestService.dividasNetfone.data.Dividas.Divida; let ind = index"> 
       <div class="metodo-pagamento">
         <div class="metodo-de-pagamento">
@@ -75,6 +86,15 @@
             <p class="btn btn-acessar">Paguei este débito</p>
       </div>
     </div>
+  </div>
+  <div *ngFor="let acordo of acordosNetfone">
+    <div *ngIf="acordo.ParcelasAcordo.ParcelaAcordo.length">
+        <div *ngFor="let par of acordo.ParcelasAcordo.ParcelaAcordo; let ind = index" class="metodo-pagamento">
+            <div class="metodo-de-pagamento">
+              {{ par.DataVencimento }} - {{ par.StatusParcelaAcordo }}
+        </div>        
+      </div>
+     </div>
   </div>
   </accordion-group>
   

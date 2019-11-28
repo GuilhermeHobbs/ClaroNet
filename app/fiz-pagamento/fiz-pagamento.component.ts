@@ -14,6 +14,8 @@ export class FizPagamentoComponent implements OnInit {
   public maxDate = new Date();
   public loader: boolean;
   public movelLabel: boolean;
+  public acordosTvVirtua: any;
+  public acordosNetfone: any;
   
   constructor(public apiRestService: ApiRestService, private localeService: BsLocaleService, private cd: ChangeDetectorRef) { 
     this.localeService.use('pt-br');    
@@ -32,8 +34,9 @@ export class FizPagamentoComponent implements OnInit {
       }
     }
     
-    console.log("dividas=");
-    console.log(this.apiRestService.dividas);
+    
+    console.log("acordos=");
+    console.log(this.acordos);
     if (this.apiRestService.dividas && this.apiRestService.dividas.data.Dividas) {
     this.apiRestService.getDividas();
     if (this.apiRestService.dividas.data.Dividas.Divida.length) {      
@@ -45,8 +48,20 @@ export class FizPagamentoComponent implements OnInit {
     }
     
   }
-    console.log("apiRestService.dividasTvVirtua");
-    console.log(this.apiRestService.dividasTvVirtua);
+    this.acordosTvVirtua = this.acordos.filter(aco => aco.Produto === "TV/VIRTUA");
+    this.acordosNetfone = this.acordos.filter(aco => aco.Produto === "NETFONE");
+
+    console.log("this.acordosTvVirtua");
+    console.log(this.acordosTvVirtua)
+
+  }
+
+  mostraAbaTvVirtua() {
+    return (this.apiRestService.dividasTvVirtua || this.acordosTvVirtua ) && this.apiRestService.mostrarAbas[0];
+  }
+
+  mostraAbaNetfone() {
+    return (this.apiRestService.dividasNetfone || this.acordosNetfone ) && this.apiRestService.mostrarAbas[1];
   }
 
   getIcon(acordo) {
