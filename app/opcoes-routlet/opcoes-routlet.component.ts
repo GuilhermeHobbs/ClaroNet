@@ -66,6 +66,7 @@ export class OpcoesRoutletComponent {
       this.showRecebaNossaLigacao = false;
       this.showAcordosAndamento = false;  
       this.logo_menor = false;
+      this.showFizPagamento = false;
     }
 
   voltarInicio() {

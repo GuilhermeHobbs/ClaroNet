@@ -62,14 +62,29 @@ export class ApiRestService {
   temDividasouAcordo(cpfCnpj: string): Observable<number> {
      
      this.cpfCnpj = cpfCnpj;
-      return this.getDadosDevedor(cpfCnpj).pipe( flatMap( (devedor: Devedor) => {
+      return this.getDadosDevedor(cpfCnpj).pipe( flatMap( (devedor: any) => {
       if (devedor.data.Codigo === '27') return of(0);
       if (devedor.data.Codigo === '10') {
         if (!devedor.data.Devedores) return of(0);
-        this.devedor = devedor;
+        
         console.log(devedor);
-        return this.getDadosDivida(cpfCnpj, devedor.data.Devedores.Devedor[0].CodigoDevedor).pipe( map( (divida: Divida) => {
+        if (devedor.data.Devedores.Devedor.CodigoDevedor) {
+          this.devedor = new Devedor();
+          this.devedor = {
+            data: {
+              Devedores: {
+                Devedor: [devedor.data.Devedores.Devedor]
+              }  
+            }
+          }
+        }
+        else {
+          this.devedor = devedor;
+        }
+        return this.getDadosDivida(cpfCnpj, this.devedor.data.Devedores.Devedor[0].CodigoDevedor).pipe( map( (divida: Divida) => {
           console.log(divida);
+          console.log("this.devedor.data.Devedores.Devedor=");
+          console.log(this.devedor.data.Devedores.Devedor);
           if (divida.data.Codigo !== '23' && divida.data.Codigo !== '10') return 2;
           
           this.dividas = divida;
@@ -354,8 +369,8 @@ console.log(this.dividasTvVirtua);
 
   export class Devedor {
     data: {
-      Codigo: string;
-      Devedores?: {
+      Codigo?: string;
+      Devedores: {
         Devedor: Array<{
           Credor: string;
           Contrato: string;

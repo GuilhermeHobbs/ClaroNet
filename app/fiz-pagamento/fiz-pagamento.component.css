@@ -36,9 +36,7 @@
         width: 90%;
         margin: 0 auto;
     }    
-        
-    
-    
+            
     .opcoes-parcelamento .btn {
         margin-bottom: 25px;
         width: 250px;    
@@ -75,6 +73,10 @@
     
     .btn-smaller {
         width: 205px !important;
+    }
+
+    .btn-acessar {
+        margin: -10px auto 0;
     }
     
     @media (max-width: 768px) {

@@ -14,9 +14,13 @@ export class FizPagamentoComponent implements OnInit {
   public maxDate = new Date();
   public loader: boolean;
   public movelLabel: boolean;
-  public acordosTvVirtua: any;
-  public acordosNetfone: any;
+  public acordosTvVirtua = [];
+  public acordosNetfone = [];
+  public mostrarAbas = [true, true]
   
+  public acordosNetfoneParcelas = [];
+  public acordosTvVirtuaParcelas = [];
+
   constructor(public apiRestService: ApiRestService, private localeService: BsLocaleService, private cd: ChangeDetectorRef) { 
     this.localeService.use('pt-br');    
   }
@@ -34,7 +38,6 @@ export class FizPagamentoComponent implements OnInit {
       }
     }
     
-    
     console.log("acordos=");
     console.log(this.acordos);
     if (this.apiRestService.dividas && this.apiRestService.dividas.data.Dividas) {
@@ -51,17 +54,24 @@ export class FizPagamentoComponent implements OnInit {
     this.acordosTvVirtua = this.acordos.filter(aco => aco.Produto === "TV/VIRTUA");
     this.acordosNetfone = this.acordos.filter(aco => aco.Produto === "NETFONE");
 
-    console.log("this.acordosTvVirtua");
-    console.log(this.acordosTvVirtua)
+    this.acordosTvVirtua.forEach( aco => {
+      if (aco.ParcelasAcordo.ParcelaAcordo.CodigoParcelaAcordo) {
+        this.acordosTvVirtuaParcelas = [];
+        this.acordosTvVirtuaParcelas.push(aco.ParcelasAcordo.ParcelaAcordo)  
+      }
+      else {
+      this.acordosTvVirtuaParcelas = aco.ParcelasAcordo.ParcelaAcordo;
+      }  
+    });  
 
   }
 
   mostraAbaTvVirtua() {
-    return (this.apiRestService.dividasTvVirtua || this.acordosTvVirtua ) && this.apiRestService.mostrarAbas[0];
+    return (this.apiRestService.dividasTvVirtua || this.acordosTvVirtua ) && this.mostrarAbas[0];
   }
 
   mostraAbaNetfone() {
-    return (this.apiRestService.dividasNetfone || this.acordosNetfone ) && this.apiRestService.mostrarAbas[1];
+    return (this.apiRestService.dividasNetfone || this.acordosNetfone ) && this.mostrarAbas[1];
   }
 
   getIcon(acordo) {
@@ -78,13 +88,13 @@ export class FizPagamentoComponent implements OnInit {
 
   getAllOpcoesTvVirtua() { 
     
-    this.apiRestService.mostrarAbas = [true, false];
+    this.mostrarAbas = [true, false];
     this.movelLabel = true;   
   }
 
   getAllOpcoesNetfone() {
 
-    this.apiRestService.mostrarAbas = [false, true];
+    this.mostrarAbas = [false, true];
     this.movelLabel = true;     
   }
 

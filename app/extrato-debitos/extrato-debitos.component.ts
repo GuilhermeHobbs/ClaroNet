@@ -24,7 +24,8 @@ export class ExtratoDebitosComponent implements OnInit {
 
     if (this.apiRestService.dividasTvVirtua.data.Dividas.Divida.length && this.apiRestService.opcoesPg[this.apiRestService.dividasTvVirtua.data.Dividas.Divida[0].CodigoTitulo]) {
       this.apiRestService.opcoesPg[this.apiRestService.dividasTvVirtua.data.Dividas.Divida[0].CodigoTitulo].subscribe ( par => {
-        this.total = par.data.OpcoesPagamento.OpcaoPagamento[0].ValorOriginal;
+        if (par.data.OpcoesPagamento.OpcaoPagamento.length) this.total = par.data.OpcoesPagamento.OpcaoPagamento[0].ValorOriginal;
+        else this.total = par.data.OpcoesPagamento.OpcaoPagamento.ValorOriginal
       })
       this.parcelas = this.apiRestService.dividasTvVirtua.data.Dividas.Divida.filter(obj => {
         return obj.CodigoTitulo === this.apiRestService.codTitulo
