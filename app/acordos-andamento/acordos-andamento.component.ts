@@ -59,13 +59,13 @@ export class AcordosAndamentoComponent implements OnInit {
        this.loadingBoleto[ind] = false;
 
        if (bol.data.BoletoAcordo) {
-          //window.open ("boleto?data=" + encodeURIComponent(bol.BoletoAcordo.DataVencimento) + "&linha=" + bol.BoletoAcordo.LinhaDigitavel + "&valor=" + bol.BoletoAcordo.Valor + "&cliente=" + this.apiRestService.getNome() + "&contrato=" + numeroTitulo);
-          this.router.navigate(['/boleto'] , { queryParams: { data: bol.data.BoletoAcordo.DataVencimento, 
+          window.open ("boleto?data=" + bol.data.BoletoAcordo.DataVencimento + "&linha=" + bol.data.BoletoAcordo.LinhaDigitavel + "&valor=" + this.apiRestService.doisDigitosDecimais(bol.data.BoletoAcordo.Valor) + "&cliente=" + this.apiRestService.devedor.data.Devedores.Devedor[0].Nome + "&contrato=" + numeroTitulo, "_blank");
+          /*this.router.navigate(['/boleto'] , { queryParams: { data: bol.data.BoletoAcordo.DataVencimento, 
             linha: bol.data.BoletoAcordo.LinhaDigitavel, 
             valor: this.apiRestService.doisDigitosDecimais(bol.data.BoletoAcordo.Valor), 
             cliente: this.apiRestService.devedor.data.Devedores.Devedor[0].Nome, 
             contrato: numeroTitulo
-          }}); 
+          }});*/ 
 
         }
        else {

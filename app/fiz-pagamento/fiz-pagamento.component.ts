@@ -40,17 +40,19 @@ export class FizPagamentoComponent implements OnInit {
     
     console.log("acordos=");
     console.log(this.acordos);
-    if (this.apiRestService.dividas && this.apiRestService.dividas.data.Dividas) {
+    
     this.apiRestService.getDividas();
-    if (this.apiRestService.dividas.data.Dividas.Divida.length) {      
+    console.log("apiRestService.dividasTvVirtua.data.Dividas.Divida=");
+    console.log(this.apiRestService.dividasTvVirtua.data.Dividas.Divida);
+    /*if (this.apiRestService.dividas.data.Dividas.Divida.length) {      
       this.dadosDivida = this.apiRestService.dividas.data.Dividas.Divida;
     }
 
     if (this.apiRestService.dividas.data.Dividas.Divida.CodigoDevedor) {
       this.dadosDivida.push(this.apiRestService.dividas.data.Dividas.Divida);
-    }
+    }*/
     
-  }
+  
     this.acordosTvVirtua = this.acordos.filter(aco => aco.Produto === "TV/VIRTUA");
     this.acordosNetfone = this.acordos.filter(aco => aco.Produto === "NETFONE");
 
@@ -62,16 +64,26 @@ export class FizPagamentoComponent implements OnInit {
       else {
       this.acordosTvVirtuaParcelas = aco.ParcelasAcordo.ParcelaAcordo;
       }  
-    });  
+    });
+    
+    this.acordosNetfone.forEach( aco => {
+      if (aco.ParcelasAcordo.ParcelaAcordo.CodigoParcelaAcordo) {
+        this.acordosNetfoneParcelas = [];
+        this.acordosNetfoneParcelas.push(aco.ParcelasAcordo.ParcelaAcordo)  
+      }
+      else {
+      this.acordosNetfoneParcelas = aco.ParcelasAcordo.ParcelaAcordo;
+      }  
+    });
 
   }
 
   mostraAbaTvVirtua() {
-    return (this.apiRestService.dividasTvVirtua || this.acordosTvVirtua ) && this.mostrarAbas[0];
+    return (this.apiRestService.dividasTvVirtua.data.Dividas.Divida.length || this.acordosTvVirtuaParcelas.length ) && this.mostrarAbas[0];
   }
 
   mostraAbaNetfone() {
-    return (this.apiRestService.dividasNetfone || this.acordosNetfone ) && this.mostrarAbas[1];
+    return (this.apiRestService.dividasNetfone.data.Dividas.Divida.length || this.acordosNetfoneParcelas.length ) && this.mostrarAbas[1];
   }
 
   getIcon(acordo) {

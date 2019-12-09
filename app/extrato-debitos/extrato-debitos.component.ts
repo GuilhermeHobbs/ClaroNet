@@ -19,9 +19,6 @@ export class ExtratoDebitosComponent implements OnInit {
 
   ngOnInit() {
 
-    console.log("this.apiRestService.dividasTvVirtua=");
-    console.log(this.apiRestService.dividasTvVirtua);
-
     if (this.apiRestService.dividasTvVirtua.data.Dividas.Divida.length && this.apiRestService.opcoesPg[this.apiRestService.dividasTvVirtua.data.Dividas.Divida[0].CodigoTitulo]) {
       this.apiRestService.opcoesPg[this.apiRestService.dividasTvVirtua.data.Dividas.Divida[0].CodigoTitulo].subscribe ( par => {
         if (par.data.OpcoesPagamento.OpcaoPagamento.length) this.total = par.data.OpcoesPagamento.OpcaoPagamento[0].ValorOriginal;
@@ -33,18 +30,17 @@ export class ExtratoDebitosComponent implements OnInit {
     }    
 
     else {
+      console.log("dividasNetfone====");
       this.apiRestService.opcoesPg[this.apiRestService.dividasNetfone.data.Dividas.Divida[0].CodigoTitulo].subscribe ( par => {
-        console.log("=====NETFONE");
-        console.log(par.data);
         if (par.data.OpcoesPagamento.OpcaoPagamento.length) this.total = par.data.OpcoesPagamento.OpcaoPagamento[0].ValorOriginal;
         else this.total = par.data.OpcoesPagamento.OpcaoPagamento.ValorOriginal;
       })
+      console.log("====this.apiRestService.dividasNetfone.data.Dividas.Divida");
+      console.log(this.apiRestService.dividasNetfone.data.Dividas.Divida);
       this.parcelas = this.apiRestService.dividasNetfone.data.Dividas.Divida.filter(obj => {
         return obj.CodigoTitulo === this.apiRestService.codTitulo
       })
     }
-    console.log("PARCELAS=");
-    console.log(this.parcelas[0].Parcelas.ParcelaDivida);
   
     this.parcelaHalfNum = Math.ceil(this.parcelas[0].Parcelas.ParcelaDivida.length / 2);
     this.parcelaHalf.length = this.parcelaHalfNum;

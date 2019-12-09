@@ -1,38 +1,23 @@
 <accordion [isAnimated]="true" [closeOthers]="true">
   
   <accordion-group *ngIf="mostraAbaTvVirtua()">
-    <button class="btn btn-link btn-block clearfix btn-accordion" accordion-heading (click)="getAllOpcoesTvVirtua()" [class.mobile-hidden]="!showHeader">
+    <button class="btn btn-link btn-block clearfix btn-accordion" accordion-heading (click)="getAllOpcoesTvVirtua()"> <!-- [class.mobile-hidden]="!showHeader"-->
       <img src="assets/icons/tv.jpg" class="produto-img" alt="...">
       <div class="pull-left float-left produto-heading"><span>TV / Virtua</span> 
         <span class="movelLabel" *ngIf="movelLabel">Selecione o débito que você pagou</span>
       </div>        
     </button>  
-    <div class="loader-wrap-wrap" *ngIf="loader">  
-        <div class="loader-wrap">
-          <div class="loader"></div>
-        </div>  
-      </div>
-    <div class="row up-30px">
+    
+    <div class="row up-30px up-15px-mobile">
               <div *ngFor="let par of acordosTvVirtuaParcelas; let ind = index" class="col-xl-4">
                 <div class="metodo-pagamento">   
                 <div class="metodo-de-pagamento">
-                    <p class="font-weight-bold">Parcela de Acordo</p>
+                    <p class="font-weight-bold">Parcela de Negociação</p>
                     {{ par.DataVencimento }} - {{ par.StatusParcelaAcordo }}
                 </div>   
                 <p class="btn btn-acessar">Paguei este débito</p>
               </div>        
             </div>
-           </div>
-           <div *ngIf="acordo.ParcelasAcordo.ParcelaAcordo.CodigoParcelaAcordo" class="col-xl-4">
-              <div class="metodo-pagamento">    
-                <div class="metodo-de-pagamento">
-                    <p class="font-weight-bold">Parcela de Acordo</p>
-                  {{ acordo.ParcelasAcordo.ParcelaAcordo.DataVencimento }} - {{ acordo.ParcelasAcordo.ParcelaAcordo.StatusParcelaAcordo }}
-                </div>
-                <p class="btn btn-acessar">Paguei este débito</p>
-              </div>
-           </div>
-      </div>   
 
      <div class="col-xl-4" *ngFor="let div of apiRestService.dividasTvVirtua.data.Dividas.Divida; let ind = index"> 
       <div class="metodo-pagamento">
@@ -54,9 +39,9 @@
     </div>  
     
   </accordion-group>
-<!--
+
   <accordion-group *ngIf="mostraAbaNetfone()">
-    <button class="btn btn-link btn-block clearfix btn-accordion" accordion-heading (click)="getAllOpcoesNetfone()" [class.mobile-hidden]="!showHeader">
+    <button class="btn btn-link btn-block clearfix btn-accordion" accordion-heading (click)="getAllOpcoesNetfone()" > <!-- [class.mobile-hidden]="!showHeader" -->
       <img src="assets/icons/phone.jpg" class="produto-img" alt="...">
       <div class="pull-left float-left produto-heading"><span>NETFONE</span> 
         <span class="movelLabel" *ngIf="movelLabel">Selecione o débito que você pagou</span>
@@ -69,48 +54,35 @@
         </div>  
       </div>
       
-      <div class="row up-30px">
-        <div *ngFor="let acordo of acordosNetfone" class="row">
-          <div *ngIf="acordo.ParcelasAcordo.ParcelaAcordo.length" class="row">
-              <div *ngFor="let par of acordo.ParcelasAcordo.ParcelaAcordo; let ind = index" class="col-xl-4">
-                <div class="metodo-pagamento">   
-                <div class="metodo-de-pagamento">
-                    <p class="font-weight-bold">Parcela de Acordo</p>
-                    {{ par.DataVencimento }} - {{ par.StatusParcelaAcordo }}
-                </div>   
-                <p class="btn btn-acessar">Paguei este débito</p>
-              </div>        
-            </div>
-           </div>
-           <div *ngIf="acordo.ParcelasAcordo.ParcelaAcordo.CodigoParcelaAcordo" class="col-xl-4">
-              <div class="metodo-pagamento">    
-                <div class="metodo-de-pagamento">
-                    <p class="font-weight-bold">Parcela de Acordo</p>
-                  {{ acordo.ParcelasAcordo.ParcelaAcordo.DataVencimento }} - {{ acordo.ParcelasAcordo.ParcelaAcordo.StatusParcelaAcordo }}
-                </div>
-                <p class="btn btn-acessar">Paguei este débito</p>
-              </div>
-           </div>
+      <div class="row up-30px up-15px-mobile">
+          <div *ngFor="let par of acordosNetfoneParcelas; let ind = index" class="col-xl-4">
+            <div class="metodo-pagamento">   
+            <div class="metodo-de-pagamento">
+                <p class="font-weight-bold">Parcela de Negociação</p>
+                {{ par.DataVencimento }} - {{ par.StatusParcelaAcordo }}
+            </div>   
+            <p class="btn btn-acessar">Paguei este débito</p>
+          </div>        
+        </div>
 
-     <div class="col-xl-4 up-30px" *ngFor="let div of apiRestService.dividasNetfone.data.Dividas.Divida; let ind = index"> 
-      <div class="metodo-pagamento">
-        <div class="metodo-de-pagamento">
-          <!--<span class="font-weight-bold">Valor total: R$ {{ getValorTotal(div.CodigoTitulo) }} </span><br>
-          <p class="font-weight-bold">Débito original</p>
-          <p class="btn btn-acessar">Paguei este débito</p>
-
-          <div *ngIf="div.Parcelas.ParcelaDivida.length">
-            <div *ngFor="let par of div.Parcelas.ParcelaDivida" class="text-left">
-              {{ par.Vencimento }} - {{ par.DescricaoItemExtrato }}
-            </div>
-          </div>
-          <div *ngIf="div.Parcelas.ParcelaDivida.Vencimento">
-              {{ div.Parcelas.ParcelaDivida.Vencimento }} - {{ div.Parcelas.ParcelaDivida.DescricaoItemExtrato }}
-          </div>
+ <div class="col-xl-4" *ngFor="let div of apiRestService.dividasNetfone.data.Dividas.Divida; let ind = index"> 
+  <div class="metodo-pagamento">
+    <div class="metodo-de-pagamento">
+      <!--<span class="font-weight-bold">Valor total: R$ {{ getValorTotal(div.CodigoTitulo) }} </span><br>-->
+      <p class="font-weight-bold">Débito original</p>
+      <p class="btn btn-acessar">Paguei este débito</p>
+      <div *ngIf="div.Parcelas.ParcelaDivida.length">
+        <div *ngFor="let par of div.Parcelas.ParcelaDivida" class="text-left">
+          {{ par.Vencimento }} - {{ par.DescricaoItemExtrato }}
         </div>
       </div>
-     </div>    
-    </div> 
-  </accordion-group> -->
+      <div *ngIf="div.Parcelas.ParcelaDivida.Vencimento">
+          {{ div.Parcelas.ParcelaDivida.Vencimento }} - {{ div.Parcelas.ParcelaDivida.DescricaoItemExtrato }}
+      </div>
+    </div>
+  </div>  
+ </div>
+</div> 
+  </accordion-group> 
   
 </accordion>

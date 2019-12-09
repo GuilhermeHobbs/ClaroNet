@@ -48,7 +48,7 @@ export class OpcoesRoutletComponent {
     this.showOpcoes = false;
     this.showFizPagamento = true;
     this.logo_menor = true;
-    //this.apiRestService.showDisclaimer = false;
+    this.showDisclaimer = false;
   }
 
   acordosAndamento() {
@@ -67,10 +67,12 @@ export class OpcoesRoutletComponent {
       this.showAcordosAndamento = false;  
       this.logo_menor = false;
       this.showFizPagamento = false;
+      this.apiRestService.mostrarAbas = [true, true];
+      this.apiRestService.opcoesPg = { };
     }
 
   voltarInicio() {
-    window.open ("/");
+    window.open (this.apiRestService.rootPath);
   }
 
   voltarNegociar() {

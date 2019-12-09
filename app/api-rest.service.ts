@@ -9,6 +9,8 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 })
 export class ApiRestService {
 
+  public rootPath = "/"; // atualmente esta hospedado em http://queronegociarnet.com.br/
+  
   public mostrarAbas = [true, true];
 
   public acordos: any;
@@ -110,7 +112,8 @@ export class ApiRestService {
 
   
  getDadosDevedor(cpfCnpj: string): Observable<Devedor> {
-  const cpfCnpjParam = new HttpParams().set('cpf', cpfCnpj);
+  const cpfCnpjParam = new HttpParams().set('cpf', cpfCnpj)
+                                       .set('origin', 'portal')
    return this.http.post<Devedor>(this.urlDadosDevedor, cpfCnpjParam, this.httpOptions).pipe(
      retry(100),
      catchError(() => {
@@ -124,7 +127,8 @@ export class ApiRestService {
  getDadosDivida(cpfCnpj: string, codDevedor: string): Observable<Divida> {
   const cpfDevedorParam = new HttpParams()
   .set('cpf', cpfCnpj)    
-  .set('codigodevedor', codDevedor);
+  .set('codigodevedor', codDevedor)
+  .set('origin', 'portal')
   return this.http.post<Divida>(this.urlDadosDivida,cpfDevedorParam, this.httpOptions).pipe(
     retry(100),
     catchError(() => {
@@ -136,7 +140,8 @@ export class ApiRestService {
 
  getOpcoesPagamento(codTitulo: string): Observable<OpcoesPagamento> {
   const cpfCnpjParam = new HttpParams().set('codigotitulo', codTitulo)
-                                       .set('cpf', this.cpfCnpj);    
+                                       .set('cpf', this.cpfCnpj)
+                                       .set('origin', 'portal')
   return this.http.post<OpcoesPagamento>(this.urlOpcoesPagamento, cpfCnpjParam, this.httpOptions).pipe(
     retry(100),
     catchError(() => {
@@ -148,7 +153,8 @@ export class ApiRestService {
 
  getDadosAcordo(codTitulo: string): Observable<any> {
   const cpfCnpjParam = new HttpParams().set('codigotitulo', codTitulo)
-                                       .set('cpf', this.cpfCnpj);
+                                       .set('cpf', this.cpfCnpj)
+                                       .set('origin', 'portal')
   return this.http.post(this.urlDadosAcordo, cpfCnpjParam, this.httpOptions).pipe(
     retry(100),
     catchError(() => {
@@ -161,7 +167,8 @@ export class ApiRestService {
  getBoletoAcordo(codAcordo: string, codCodigoAcordo: string): Observable<any> {
   const params = new HttpParams().set('codigoacordo', codAcordo)
                                  .set('codigoparcelaacordo', codCodigoAcordo)
-                                 .set('cpf', this.cpfCnpj);    
+                                 .set('cpf', this.cpfCnpj)
+                                 .set('origin', 'portal')    
   return this.http.post(this.urlBoletoAcordo, params, this.httpOptions).pipe(
     retry(100),
     catchError(() => {
@@ -175,7 +182,8 @@ export class ApiRestService {
   let nome = this.devedor.data.Devedores.Devedor[0].Nome.toLocaleUpperCase().split(' ')[0];
   const params = new HttpParams().set('cpf', this.cpfCnpj)
                                  .set('numeroenvio', this.telefone)
-                                 .set('textosms', nome + ", Codigo Barras de sua conta NET Vencimento " + vencimento + ", Valor R$ " + valor + ", Codigo " + codigobarra);
+                                 .set('textosms', nome + ", Codigo Barras de sua conta NET Vencimento " + vencimento + ", Valor R$ " + valor + ", Codigo " + codigobarra)
+                                 .set('origin', 'portal')
   return this.http.post(this.urlEnviaSms, params, this.httpOptions).pipe(
     retry(100),
     catchError(() => {
@@ -193,7 +201,8 @@ export class ApiRestService {
                                        .set('codigotitulo', codTitulo)
                                        .set('plano', codPlano)
                                        .set('vencimentoprimeira', vencimentoPrimeira)
-                                       .set('valorprimeira', valorPrimeira.replace('.',','));
+                                       .set('valorprimeira', valorPrimeira.replace('.',','))   // o acordo só é feito com uma virgula separando as casas decimais
+                                       .set('origin', 'portal')
 
   return this.http.post(this.urlGravaAcordo, params, this.httpOptions).pipe(
     retry(100),
@@ -212,7 +221,8 @@ export class ApiRestService {
                                  .set('valor', valor)
                                  .set('vencimento', vencimento)
                                  .set('codigobarra', linha)
-                                 .set('email', email);
+                                 .set('email', email)
+                                 .set('origin', 'portal')
 
   return this.http.post(this.urlBoletoEmail, params, this.httpOptions).pipe(
     retry(100),
@@ -224,7 +234,7 @@ export class ApiRestService {
  }
  
  getDividas() {
-  
+
   this.dividasTvVirtua = new Divida();
   this.dividasTvVirtua = {
     data: {
@@ -243,30 +253,20 @@ export class ApiRestService {
     }  
   };
 
-  console.log("====getDividas()");
-  console.log(this.dividas);
+  if (this.dividas && this.dividas.data.Dividas) {
 
   if (this.dividas.data.Dividas.Divida.length) {
-    console.log("===TV/VIRTUA===ONE");
-    console.log(this.dividas.data.Dividas.Divida);
 
     this.dividasTvVirtua.data.Dividas.Divida = this.dividas.data.Dividas.Divida.filter( div => div.Produto === "TV/VIRTUA" );  
     this.dividasNetfone.data.Dividas.Divida = this.dividas.data.Dividas.Divida.filter( div => div.Produto === "NETFONE" );
   
-    console.log("===this.dividasTvVirtua");
-    console.log(this.dividasTvVirtua);
-
-
   }
   
   else { 
     
     switch (this.dividas.data.Dividas.Divida.Produto) {
       case "TV/VIRTUA": {
-        console.log("===TV/VIRTUA===")
         this.dividasTvVirtua.data.Dividas.Divida.push(this.dividas.data.Dividas.Divida);
-        console.log(this.dividas);
-        console.log(this.dividas.data.Dividas.Divida);
         break;
       } 
       case "NETFONE": {
@@ -278,12 +278,11 @@ export class ApiRestService {
 
  } 
 }
+}
 
  getAllOpcoesTvVirtua() {
 
 if (this.opcoesPg[this.dividasTvVirtua.data.Dividas.Divida[0].CodigoTitulo]) return true; 
-console.log("====this.dividasTvVirtua")
-console.log(this.dividasTvVirtua);
 
  this.dividasTvVirtua.data.Dividas.Divida.forEach ( (divida) => {
  
@@ -331,7 +330,6 @@ console.log(this.dividasTvVirtua);
 
    doisDigitosDecimais (num: string) {
     num = num.replace(',','.');
-    console.log(num.indexOf('.'));
     if (num.indexOf('.') === num.length-2) return num + '0';
     if (num.indexOf('.') === -1)  return num + '.00'; 
      return num;

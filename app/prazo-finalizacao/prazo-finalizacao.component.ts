@@ -115,8 +115,8 @@ export class PrazoFinalizacaoComponent implements OnInit {
 
        if (bol.data) {
          this.boleto = bol; 
-        //window.open ("/boleto?data=" + bol.BoletoAcordo.DataVencimento + "&linha=" + bol.BoletoAcordo.LinhaDigitavel + "&valor=" + bol.BoletoAcordo.Valor, "_self");
-        this.router.navigate(['/boleto'] , { queryParams: { data: bol.data.BoletoAcordo.DataVencimento, linha: bol.data.BoletoAcordo.LinhaDigitavel, valor: this.apiRestService.doisDigitosDecimais (bol.data.BoletoAcordo.Valor), cliente: this.apiRestService.devedor.data.Devedores.Devedor[0].Nome, contrato: this.apiRestService.devedor.data.Devedores.Devedor[0].Contrato}});
+        window.open ("/boleto?data=" + bol.data.BoletoAcordo.DataVencimento + "&linha=" + bol.data.BoletoAcordo.LinhaDigitavel + "&valor=" + this.apiRestService.doisDigitosDecimais (bol.data.BoletoAcordo.Valor) + "&cliente=" + this.apiRestService.devedor.data.Devedores.Devedor[0].Nome + "&contrato=" + this.apiRestService.devedor.data.Devedores.Devedor[0].Contrato, "_blank");
+        //this.router.navigate(['/boleto'] , { queryParams: { data: bol.data.BoletoAcordo.DataVencimento, linha: bol.data.BoletoAcordo.LinhaDigitavel, valor: this.apiRestService.doisDigitosDecimais (bol.data.BoletoAcordo.Valor), cliente: this.apiRestService.devedor.data.Devedores.Devedor[0].Nome, contrato: this.apiRestService.devedor.data.Devedores.Devedor[0].Contrato}});
       }
        else {
          this.erroBoleto = true;
@@ -126,7 +126,8 @@ export class PrazoFinalizacaoComponent implements OnInit {
   }
 
   else {
-    this.router.navigate(['/boleto'], { queryParams: { data: this.boleto.data.BoletoAcordo.DataVencimento, linha: this.boleto.data.BoletoAcordo.LinhaDigitavel, valor: this.apiRestService.doisDigitosDecimais (this.boleto.data.BoletoAcordo.Valor), cliente: this.apiRestService.devedor.data.Devedores.Devedor[0].Nome, contrato: this.apiRestService.devedor.data.Devedores.Devedor[0].Contrato}});
+    //this.router.navigate(['/boleto'], { queryParams: { data: this.boleto.data.BoletoAcordo.DataVencimento, linha: this.boleto.data.BoletoAcordo.LinhaDigitavel, valor: this.apiRestService.doisDigitosDecimais (this.boleto.data.BoletoAcordo.Valor), cliente: this.apiRestService.devedor.data.Devedores.Devedor[0].Nome, contrato: this.apiRestService.devedor.data.Devedores.Devedor[0].Contrato}});
+    window.open ("/boleto?data=" + this.boleto.data.BoletoAcordo.DataVencimento + "&linha=" + this.boleto.data.BoletoAcordo.LinhaDigitavel + "&valor=" + this.apiRestService.doisDigitosDecimais (this.boleto.data.BoletoAcordo.Valor) + "&cliente=" + this.apiRestService.devedor.data.Devedores.Devedor[0].Nome + "&contrato=" + this.apiRestService.devedor.data.Devedores.Devedor[0].Contrato, "_blank");
   }
 }
   

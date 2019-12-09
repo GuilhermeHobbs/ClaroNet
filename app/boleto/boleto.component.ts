@@ -36,10 +36,14 @@ import bwipjs from 'bwip-angular2';
   public hoje = (this.newDate.toLocaleString().indexOf(',') > -1)? this.newDate.toLocaleString().slice(0, 10) : this.newDate.toLocaleString().split(' ')[0];
 
   ngOnInit() { 
-    
+    setTimeout(this.mostrarBoleto, 1000, this.linha); 
+  }
+  
+  mostrarBoleto(linha: string) {
+
     bwipjs('barcodeCanvas', {
       bcid: 'interleaved2of5',        // Barcode type
-      text: this.linha.split(' ').join(''),   	  // Text to encode
+      text: linha.split(' ').join(''),   	  // Text to encode
       scale: 2,               // 3x scaling factor
       height: 10,             // Bar height, in millimeters
       width: 6,

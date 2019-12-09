@@ -1,3 +1,37 @@
+button {
+    text-decoration: none !important;
+}
+
+.produto-heading {
+    line-height: 44px;
+    font-size: 22px;
+    margin-left: 10px;    
+    }
+    
+    .logo {
+        width: 120px;
+        display: block;
+        margin: 10px auto;
+    }
+    
+    
+    .produto-img {
+        height: 45px;
+        float: left;
+    }
+
+    .btn-accordion {
+        line-height: 50px;
+        font-size: 20px;
+    }
+
+
+
+
+
+
+
+
 .produto-heading {
     line-height: 44px;
     font-size: 22px;
@@ -76,7 +110,7 @@
     }
 
     .btn-acessar {
-        margin: -10px auto 0;
+        margin: -5px auto 0;
     }
     
     @media (max-width: 768px) {
