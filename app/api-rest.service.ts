@@ -221,6 +221,7 @@ export class ApiRestService {
                                  .set('valor', valor)
                                  .set('vencimento', vencimento)
                                  .set('codigobarra', linha)
+                                 .set('codigo', this.linhaDigitavelToCodigoBarras(linha) )
                                  .set('email', email)
                                  .set('origin', 'portal')
 
@@ -335,7 +336,14 @@ if (this.opcoesPg[this.dividasTvVirtua.data.Dividas.Divida[0].CodigoTitulo]) ret
      return num;
   }
 
-  
+  linhaDigitavelToCodigoBarras(linha: string) {
+
+    linha = linha.trim();
+    let num = linha.split(' ').join('');
+    return num.substring(0, 4) + num.substring(32, 47) + num.substring(4, 9) + num.substring(10, 20) + num.substring(21, 31);
+
+  }
+
 
 }
 

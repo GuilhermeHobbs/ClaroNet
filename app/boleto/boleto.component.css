@@ -1,4 +1,4 @@
-td.BoletoCodigoBanco {font-size: 6mm; font-family: arial, verdana; font-weight : bold; 
+/*td.BoletoCodigoBanco {font-size: 6mm; font-family: arial, verdana; font-weight : bold; 
     FONT-STYLE: italic; text-align: center; vertical-align: bottom;  
     border-bottom: 0.15mm solid #000000; border-right: 0.15mm solid #000000;
     padding-bottom : 1mm}
@@ -29,6 +29,57 @@ td.BoletoValorSacador{font-size: 3mm; font-family: arial, verdana; vertical-alig
    font-weight: bold; text-align: left}	
 td.BoletoPontilhado{border-top: 0.3mm dashed #000000; font-size: 1mm}
 ul.BoletoInstrucoes{font-size : 3mm; font-family : verdana, arial}	  
+
+@media (max-width: 768px) {
+      .Boleto {
+            width: 400px;
+      }
+
+      td.BoletoLinhaDigitavel, td.BoletoValorDireito {
+            text-align: left;
+      }
+
+      .modal-body {
+        padding-left: 0;
+      }
+}      
+*/
+
+
+.Boleto {
+      font-size: 16px;
+      margin: 25px;
+}
+td.BoletoCodigoBanco { font-family: arial, verdana; font-weight : bold; 
+     text-align: center; vertical-align: bottom;  
+    border-bottom: 0.15mm solid #000000; border-right: 0.15mm solid #000000;
+    padding-bottom : 1mm}
+td.BoletoLogo { border-bottom: 0.15mm solid #000000;  border-right: 0.15mm solid #000000;
+text-align: center; height: 10mm}	
+td.BoletoLinhaDigitavel { font-weight : bold; font-size: 30px;
+       text-align: center; vertical-align: bottom; 
+        border-bottom: 0.15mm solid #000000; padding-bottom : 1mm; }
+td.BoletoTituloEsquerdo{padding-left : 0.15mm;
+      border-right: 0.15mm solid #000000; text-align: left}
+td.BoletoTituloDireito{ padding-left : 0.15mm;
+      text-align: left}
+td.BoletoValorEsquerdo{ text-align: center;
+      border-right: 0.15mm solid #000000; font-weight: bold;
+      border-bottom: 0.15mm solid #000000; padding-top: 0.5mm}
+td.BoletoValorDireito{ text-align:right; 
+    padding-right: 3mm; padding-top: 0.8mm; border-bottom: 0.15mm solid #000000;
+     font-weight: bold;}
+td.BoletoTituloSacado{ padding-left : 0.15mm;
+      vertical-align: top; padding-top : 0.15mm; text-align: left}
+td.BoletoValorSacado{  font-weight: bold; 
+  text-align : left}
+td.BoletoTituloSacador{ padding-left : 0.15mm;
+      vertical-align: bottom; padding-bottom : 0.8mm;
+      border-bottom: 0.15mm solid #000000}
+td.BoletoValorSacador{ vertical-align: bottom; 
+  padding-bottom : 0.15mm; border-bottom: 0.15mm solid #000000;
+   font-weight: bold; text-align: left}	
+td.BoletoPontilhado{border-top: 0.3mm dashed #000000; font-size: 1mm}
 
 @media (max-width: 768px) {
       .Boleto {

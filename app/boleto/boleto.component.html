@@ -1,10 +1,5 @@
-<ng-template #template>
-    <div class="modal-header">
-      <h4 class="modal-title pull-left">Seu boleto</h4>
-  </div>
-  <div class="modal-body">
 
-      <TABLE cellSpacing=0 cellPadding=0 border=0 class="Boleto">
+      <TABLE cellSpacing=0 cellPadding=0 class="Boleto">
         
         <TR>
           <TD style='width: 0.9cm'></TD>
@@ -61,16 +56,13 @@
           <TD colspan=4 class=BoletoValorEsquerdo>{{ hoje }}</TD>
         </TR>  
           
-        <TR>
+        <TR> 
           <TD colspan=12 class=BoletoTituloEsquerdo>Código de barras</TD>
         </TR>
         <TR>
-          <TD colspan=12  class=BoletoValorEsquerdo style='text-align: left; vertical-align:top; padding-left : 0.1cm'><canvas id="barcodeCanvas"></canvas></TD>
+          <TD colspan=12  class=BoletoValorEsquerdo><canvas id="barcodeCanvas"></canvas></TD> <!--style='text-align: left; vertical-align:top; padding-left : 0.1cm'-->
           
         </TR>  
          
                         
         </TABLE>
-
-  </div>
-</ng-template>

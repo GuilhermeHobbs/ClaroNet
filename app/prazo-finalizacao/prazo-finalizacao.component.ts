@@ -115,7 +115,7 @@ export class PrazoFinalizacaoComponent implements OnInit {
 
        if (bol.data) {
          this.boleto = bol; 
-        window.open ("/boleto?data=" + bol.data.BoletoAcordo.DataVencimento + "&linha=" + bol.data.BoletoAcordo.LinhaDigitavel + "&valor=" + this.apiRestService.doisDigitosDecimais (bol.data.BoletoAcordo.Valor) + "&cliente=" + this.apiRestService.devedor.data.Devedores.Devedor[0].Nome + "&contrato=" + this.apiRestService.devedor.data.Devedores.Devedor[0].Contrato, "_blank");
+        window.open ("/boleto?data=" + bol.data.BoletoAcordo.DataVencimento + "&linha=" + bol.data.BoletoAcordo.LinhaDigitavel + "&valor=" + this.apiRestService.doisDigitosDecimais (bol.data.BoletoAcordo.Valor) + "&cliente=" + this.apiRestService.devedor.data.Devedores.Devedor[0].Nome + "&contrato=" + this.apiRestService.devedor.data.Devedores.Devedor[0].Contrato + "&codigo=" + this.apiRestService.linhaDigitavelToCodigoBarras(bol.data.BoletoAcordo.LinhaDigitavel), "_blank");
         //this.router.navigate(['/boleto'] , { queryParams: { data: bol.data.BoletoAcordo.DataVencimento, linha: bol.data.BoletoAcordo.LinhaDigitavel, valor: this.apiRestService.doisDigitosDecimais (bol.data.BoletoAcordo.Valor), cliente: this.apiRestService.devedor.data.Devedores.Devedor[0].Nome, contrato: this.apiRestService.devedor.data.Devedores.Devedor[0].Contrato}});
       }
        else {
@@ -127,7 +127,7 @@ export class PrazoFinalizacaoComponent implements OnInit {
 
   else {
     //this.router.navigate(['/boleto'], { queryParams: { data: this.boleto.data.BoletoAcordo.DataVencimento, linha: this.boleto.data.BoletoAcordo.LinhaDigitavel, valor: this.apiRestService.doisDigitosDecimais (this.boleto.data.BoletoAcordo.Valor), cliente: this.apiRestService.devedor.data.Devedores.Devedor[0].Nome, contrato: this.apiRestService.devedor.data.Devedores.Devedor[0].Contrato}});
-    window.open ("/boleto?data=" + this.boleto.data.BoletoAcordo.DataVencimento + "&linha=" + this.boleto.data.BoletoAcordo.LinhaDigitavel + "&valor=" + this.apiRestService.doisDigitosDecimais (this.boleto.data.BoletoAcordo.Valor) + "&cliente=" + this.apiRestService.devedor.data.Devedores.Devedor[0].Nome + "&contrato=" + this.apiRestService.devedor.data.Devedores.Devedor[0].Contrato, "_blank");
+    window.open ("/boleto?data=" + this.boleto.data.BoletoAcordo.DataVencimento + "&linha=" + this.boleto.data.BoletoAcordo.LinhaDigitavel + "&valor=" + this.apiRestService.doisDigitosDecimais (this.boleto.data.BoletoAcordo.Valor) + "&cliente=" + this.apiRestService.devedor.data.Devedores.Devedor[0].Nome + "&contrato=" + this.apiRestService.devedor.data.Devedores.Devedor[0].Contrato + "&codigo=" + this.apiRestService.linhaDigitavelToCodigoBarras(this.boleto.data.BoletoAcordo.LinhaDigitavel), "_blank");
   }
 }
   
@@ -259,4 +259,6 @@ export class PrazoFinalizacaoComponent implements OnInit {
   }
   
   }  
+
+
 }
