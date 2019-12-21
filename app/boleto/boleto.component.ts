@@ -38,14 +38,14 @@ import bwipjs from 'bwip-angular2';
     setTimeout(this.mostrarBoleto, 1000, this.codigo); // necessario carregar o codigo de barras depois do resto da pagina 
   }
   
-  mostrarBoleto(linha: string) {
+  mostrarBoleto(codigo: string) {
 
     bwipjs('barcodeCanvas', {
       bcid: 'interleaved2of5',        // Barcode type
-      text: linha,   	  // Text to encode
-      scale: 2,               // 3x scaling factor
-      height: 10,             // Bar height, in millimeters
-      width: 6,
+      text: codigo,   	  // Text to encode
+      scale: 1,               // 3x scaling factor
+      height: 20,             // Bar height, in millimeters
+   //   width: 6,
       includetext: true,      // Show human-readable text
       textxalign: 'center',   // Always good to set this
     }, (err, cvs) => {

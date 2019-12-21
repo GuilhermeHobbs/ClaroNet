@@ -220,8 +220,8 @@ export class ApiRestService {
                                  .set('contrato', contrato)
                                  .set('valor', valor)
                                  .set('vencimento', vencimento)
-                                 .set('codigobarra', linha)
-                                 .set('codigo', this.linhaDigitavelToCodigoBarras(linha) )
+                                 .set('codigobarra', this.linhaDigitavelToCodigoBarras(linha))
+                                 .set('linhadigitavel', linha)
                                  .set('email', email)
                                  .set('origin', 'portal')
 
@@ -340,7 +340,7 @@ if (this.opcoesPg[this.dividasTvVirtua.data.Dividas.Divida[0].CodigoTitulo]) ret
 
     linha = linha.trim();
     let num = linha.split(' ').join('');
-    return num.substring(0, 4) + num.substring(32, 47) + num.substring(4, 9) + num.substring(10, 20) + num.substring(21, 31);
+    return num.substring(0, 11) + num.substring(12, 23) + num.substring(24, 35) + num.substring(36, 47);
 
   }
 
